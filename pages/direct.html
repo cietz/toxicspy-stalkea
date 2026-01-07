@@ -193,8 +193,10 @@
 <script>
 // === SCRIPT DE RENDERIZAÇÃO DINÂMICA PARA DIRECT ===
 (function() {
-  const API_URL = 'http://localhost:3000/api/instagram.php';
   const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  const API_URL = isLocalhost
+    ? 'http://localhost:3000/api/instagram.php'
+    : '/api/instagram.php';
   
   // Função para proxy de imagem - CORRIGIDA para evitar duplo proxy
   function getProxyImageUrl(originalUrl) {
