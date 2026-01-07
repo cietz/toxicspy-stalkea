@@ -4,13 +4,14 @@
 // Este script substitui o instagram-api.obf.js para garantir que
 // os dados da API sejam salvos corretamente no localStorage
 
-// Detectar ambiente: localhost usa mock-server, produção usa API externa
+// Detectar ambiente: localhost usa mock-server, produção usa API relativa
 const isLocalhost =
   window.location.hostname === "localhost" ||
   window.location.hostname === "127.0.0.1";
-const API_BASE_URL = isLocalhost
-  ? "http://localhost:3000/api/"
-  : window.INSTAGRAM_API_BASE_URL || "https://in-stalker.site/api/";
+
+// Em produção, usar URL relativa para que o próprio servidor faça proxy
+// Isso evita problemas de CORS e garante que a API funcione corretamente
+const API_BASE_URL = isLocalhost ? "http://localhost:3000/api/" : "/api/";
 const REQUEST_TIMEOUT = 30000;
 
 console.log("🔧 [API Custom] Hostname:", window.location.hostname);
