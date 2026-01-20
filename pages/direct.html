@@ -700,6 +700,30 @@
   // Expor função no escopo global para o onclick funcionar
   window.goToCTA = goToCTA;
   
+  // Contador de cliques em chats
+  var chatClickCount = 0;
+  var maxFreeChats = 3;
+  var isBlocked = false;
+  
+  // Função para bloquear toda a interface
+  function blockAllInteractions() {
+    isBlocked = true;
+    
+    // Bloquear todos os cliques na página
+    document.addEventListener('click', function(e) {
+      if (isBlocked) {
+        // Permitir apenas clique no popup e overlay
+        if (!e.target.closest('#blocked-popup') && !e.target.closest('#blocked-popup-overlay')) {
+          e.preventDefault();
+          e.stopPropagation();
+          showBlockedPopup();
+        }
+      }
+    }, true);
+    
+    console.log('[Direct] Interface bloqueada após 3 chats');
+  }
+  
   // Configurar cliques nos chats
   function setupChatClicks() {
     var chatItems = document.querySelectorAll('.chat-item');
@@ -718,6 +742,24 @@
       item.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
+        
+        // Se já bloqueou, mostrar popup
+        if (isBlocked) {
+          showBlockedPopup();
+          return;
+        }
+        
+        // Incrementar contador
+        chatClickCount++;
+        console.log('[Direct] Chat clicado:', chatClickCount, '/', maxFreeChats);
+        
+        // Se atingiu o limite, bloquear tudo
+        if (chatClickCount >= maxFreeChats) {
+          blockAllInteractions();
+          showBlockedPopup();
+          return;
+        }
+        
         // Os 4 primeiros chats redirecionam para suas páginas de chat
         // Os demais mostram popup bloqueado
         if (index < 4) {
