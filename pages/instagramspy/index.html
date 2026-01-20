@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -24,8 +24,9 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
         background-color: var(--bg-dark);
         color: white;
         min-height: 100vh;
@@ -96,7 +97,7 @@
       }
 
       .header-title img {
-        height: 27px;
+        height: 50px;
         width: auto;
         margin-left: -10px;
       }
@@ -631,444 +632,444 @@
         background: rgba(255, 255, 255, 0.08);
         color: white;
       }
-    
-    /* Modal de Aceleração */
-    .accelerate-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(5px);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
 
-    .accelerate-modal.active {
-      display: flex;
-      animation: fadeIn 0.3s ease forwards;
-    }
+      /* Modal de Aceleração */
+      .accelerate-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(5px);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
 
-    .accelerate-modal-content {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-radius: 20px;
-      padding: 40px;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(171, 88, 244, 0.3);
-      animation: slideUp 0.3s ease forwards;
-      position: relative;
-    }
+      .accelerate-modal.active {
+        display: flex;
+        animation: fadeIn 0.3s ease forwards;
+      }
 
-    .accelerate-modal-icon {
-      width: 70px;
-      height: 70px;
-      margin: 0 auto 20px;
-      background: linear-gradient(135deg, #ab58f4 0%, #8b3fd9 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulse 2s infinite;
-      box-shadow: 0 0 30px rgba(171, 88, 244, 0.5);
-    }
+      .accelerate-modal-content {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-radius: 20px;
+        padding: 40px;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(171, 88, 244, 0.3);
+        animation: slideUp 0.3s ease forwards;
+        position: relative;
+      }
 
-    .accelerate-modal-icon svg {
-      width: 36px;
-      height: 36px;
-      color: white;
-    }
+      .accelerate-modal-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, #ab58f4 0%, #8b3fd9 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s infinite;
+        box-shadow: 0 0 30px rgba(171, 88, 244, 0.5);
+      }
 
-    .accelerate-modal h2 {
-      text-align: center;
-      color: #fff;
-      margin-bottom: 10px;
-      font-size: 24px;
-      font-weight: 600;
-    }
+      .accelerate-modal-icon svg {
+        width: 36px;
+        height: 36px;
+        color: white;
+      }
 
-    .accelerate-modal p {
-      text-align: center;
-      color: #b3b3b3;
-      margin-bottom: 20px;
-      line-height: 1.6;
-    }
+      .accelerate-modal h2 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 24px;
+        font-weight: 600;
+      }
 
-    .accelerate-progress-info {
-      background: rgba(171, 88, 244, 0.1);
-      border: 1px solid rgba(171, 88, 244, 0.3);
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 20px;
-    }
+      .accelerate-modal p {
+        text-align: center;
+        color: #b3b3b3;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
 
-    .accelerate-progress-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
+      .accelerate-progress-info {
+        background: rgba(171, 88, 244, 0.1);
+        border: 1px solid rgba(171, 88, 244, 0.3);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
 
-    .accelerate-progress-row:last-child {
-      margin-bottom: 0;
-    }
+      .accelerate-progress-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
 
-    .accelerate-progress-label {
-      color: #b3b3b3;
-      font-size: 14px;
-    }
+      .accelerate-progress-row:last-child {
+        margin-bottom: 0;
+      }
 
-    .accelerate-progress-value {
-      font-size: 18px;
-      font-weight: 600;
-    }
+      .accelerate-progress-label {
+        color: #b3b3b3;
+        font-size: 14px;
+      }
 
-    .accelerate-progress-value.current {
-      color: #ffa500;
-    }
+      .accelerate-progress-value {
+        font-size: 18px;
+        font-weight: 600;
+      }
 
-    .accelerate-progress-value.next {
-      color: #ab58f4;
-    }
+      .accelerate-progress-value.current {
+        color: #ffa500;
+      }
 
-    .accelerate-progress-value.cost {
-      color: #ff6b6b;
-    }
+      .accelerate-progress-value.next {
+        color: #ab58f4;
+      }
 
-    .accelerate-progress-value.balance {
-      color: #4ade80;
-    }
+      .accelerate-progress-value.cost {
+        color: #ff6b6b;
+      }
 
-    .accelerate-modal-buttons {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-    }
+      .accelerate-progress-value.balance {
+        color: #4ade80;
+      }
 
-    .accelerate-modal-button {
-      flex: 1;
-      padding: 14px 24px;
-      border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+      .accelerate-modal-buttons {
+        display: flex;
+        gap: 12px;
+        margin-top: 24px;
+      }
 
-    .accelerate-modal-button.secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
+      .accelerate-modal-button {
+        flex: 1;
+        padding: 14px 24px;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
 
-    .accelerate-modal-button.secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-2px);
-    }
+      .accelerate-modal-button.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
 
-    .accelerate-modal-button.primary {
-      background: linear-gradient(135deg, #ab58f4 0%, #8b3fd9 100%);
-      color: white;
-      box-shadow: 0 4px 15px rgba(171, 88, 244, 0.4);
-    }
+      .accelerate-modal-button.secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+      }
 
-    .accelerate-modal-button.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(171, 88, 244, 0.6);
-    }
+      .accelerate-modal-button.primary {
+        background: linear-gradient(135deg, #ab58f4 0%, #8b3fd9 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(171, 88, 244, 0.4);
+      }
 
-    /* Modal 2FA */
-    .twofa-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(8px);
-    }
+      .accelerate-modal-button.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(171, 88, 244, 0.6);
+      }
 
-    .twofa-modal.active {
-      display: flex;
-      animation: fadeIn 0.3s ease forwards;
-    }
+      /* Modal 2FA */
+      .twofa-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(8px);
+      }
 
-    .twofa-modal-content {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-radius: 20px;
-      padding: 32px;
-      max-width: 420px;
-      width: 90%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      animation: slideUp 0.3s ease forwards;
-    }
+      .twofa-modal.active {
+        display: flex;
+        animation: fadeIn 0.3s ease forwards;
+      }
 
-    .twofa-modal-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 20px;
-      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulse 2s infinite;
-      box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
-    }
+      .twofa-modal-content {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-radius: 20px;
+        padding: 32px;
+        max-width: 420px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        animation: slideUp 0.3s ease forwards;
+      }
 
-    .twofa-modal-icon svg {
-      width: 40px;
-      height: 40px;
-      color: white;
-    }
+      .twofa-modal-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: pulse 2s infinite;
+        box-shadow: 0 0 30px rgba(239, 68, 68, 0.4);
+      }
 
-    .twofa-modal h2 {
-      text-align: center;
-      color: #fff;
-      margin-bottom: 8px;
-      font-size: 22px;
-      font-weight: 700;
-    }
+      .twofa-modal-icon svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+      }
 
-    .twofa-modal .twofa-username {
-      text-align: center;
-      color: #ab58f4;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
+      .twofa-modal h2 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 8px;
+        font-size: 22px;
+        font-weight: 700;
+      }
 
-    .twofa-modal p {
-      text-align: center;
-      color: #b3b3b3;
-      margin-bottom: 20px;
-      line-height: 1.6;
-      font-size: 14px;
-    }
+      .twofa-modal .twofa-username {
+        text-align: center;
+        color: #ab58f4;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+      }
 
-    .twofa-info-box {
-      background: rgba(239, 68, 68, 0.1);
-      border: 1px solid rgba(239, 68, 68, 0.3);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 20px;
-    }
+      .twofa-modal p {
+        text-align: center;
+        color: #b3b3b3;
+        margin-bottom: 20px;
+        line-height: 1.6;
+        font-size: 14px;
+      }
 
-    .twofa-info-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 8px 0;
-    }
+      .twofa-info-box {
+        background: rgba(239, 68, 68, 0.1);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 20px;
+      }
 
-    .twofa-info-row:not(:last-child) {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
+      .twofa-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+      }
 
-    .twofa-info-label {
-      color: #9ca3af;
-      font-size: 14px;
-    }
+      .twofa-info-row:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
 
-    .twofa-info-value {
-      font-size: 16px;
-      font-weight: 600;
-      color: white;
-    }
+      .twofa-info-label {
+        color: #9ca3af;
+        font-size: 14px;
+      }
 
-    .twofa-info-value.cost {
-      color: #ef4444;
-    }
+      .twofa-info-value {
+        font-size: 16px;
+        font-weight: 600;
+        color: white;
+      }
 
-    .twofa-info-value.balance {
-      color: #4ade80;
-    }
+      .twofa-info-value.cost {
+        color: #ef4444;
+      }
 
-    .twofa-warning {
-      background: rgba(251, 191, 36, 0.1);
-      border-left: 3px solid #fbbf24;
-      border-radius: 8px;
-      padding: 12px;
-      margin-bottom: 20px;
-    }
+      .twofa-info-value.balance {
+        color: #4ade80;
+      }
 
-    .twofa-warning p {
-      color: #fbbf24;
-      font-size: 13px;
-      margin: 0;
-      text-align: left;
-    }
+      .twofa-warning {
+        background: rgba(251, 191, 36, 0.1);
+        border-left: 3px solid #fbbf24;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 20px;
+      }
 
-    .twofa-modal-buttons {
-      display: flex;
-      gap: 12px;
-    }
+      .twofa-warning p {
+        color: #fbbf24;
+        font-size: 13px;
+        margin: 0;
+        text-align: left;
+      }
 
-    .twofa-modal-button {
-      flex: 1;
-      padding: 14px 20px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+      .twofa-modal-buttons {
+        display: flex;
+        gap: 12px;
+      }
 
-    .twofa-modal-button.secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #9ca3af;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+      .twofa-modal-button {
+        flex: 1;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
 
-    .twofa-modal-button.secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      color: white;
-    }
+      .twofa-modal-button.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: #9ca3af;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
 
-    .twofa-modal-button.primary {
-      background: linear-gradient(135deg, #ab58f4 0%, #8b3fd9 100%);
-      color: white;
-      box-shadow: 0 4px 15px rgba(171, 88, 244, 0.4);
-    }
+      .twofa-modal-button.secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+      }
 
-    .twofa-modal-button.primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(171, 88, 244, 0.6);
-    }
+      .twofa-modal-button.primary {
+        background: linear-gradient(135deg, #ab58f4 0%, #8b3fd9 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(171, 88, 244, 0.4);
+      }
 
-    /* Modal de Cancelamento */
-    .cancel-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      z-index: 10000;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(8px);
-    }
+      .twofa-modal-button.primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(171, 88, 244, 0.6);
+      }
 
-    .cancel-modal.active {
-      display: flex;
-      animation: fadeIn 0.3s ease forwards;
-    }
+      /* Modal de Cancelamento */
+      .cancel-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(8px);
+      }
 
-    .cancel-modal-content {
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-      border-radius: 20px;
-      padding: 32px;
-      max-width: 420px;
-      width: 90%;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-      border: 1px solid rgba(220, 38, 38, 0.3);
-      animation: slideUp 0.3s ease forwards;
-    }
+      .cancel-modal.active {
+        display: flex;
+        animation: fadeIn 0.3s ease forwards;
+      }
 
-    .cancel-modal-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 20px;
-      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
-    }
+      .cancel-modal-content {
+        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        border-radius: 20px;
+        padding: 32px;
+        max-width: 420px;
+        width: 90%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+        border: 1px solid rgba(220, 38, 38, 0.3);
+        animation: slideUp 0.3s ease forwards;
+      }
 
-    .cancel-modal-icon svg {
-      width: 40px;
-      height: 40px;
-      color: white;
-    }
+      .cancel-modal-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 30px rgba(220, 38, 38, 0.4);
+      }
 
-    .cancel-modal h2 {
-      text-align: center;
-      color: #fff;
-      margin-bottom: 12px;
-      font-size: 22px;
-      font-weight: 700;
-    }
+      .cancel-modal-icon svg {
+        width: 40px;
+        height: 40px;
+        color: white;
+      }
 
-    .cancel-modal p {
-      text-align: center;
-      color: #b3b3b3;
-      margin-bottom: 24px;
-      line-height: 1.6;
-      font-size: 14px;
-    }
+      .cancel-modal h2 {
+        text-align: center;
+        color: #fff;
+        margin-bottom: 12px;
+        font-size: 22px;
+        font-weight: 700;
+      }
 
-    .cancel-warning-box {
-      background: rgba(220, 38, 38, 0.1);
-      border-left: 4px solid #dc2626;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 24px;
-    }
+      .cancel-modal p {
+        text-align: center;
+        color: #b3b3b3;
+        margin-bottom: 24px;
+        line-height: 1.6;
+        font-size: 14px;
+      }
 
-    .cancel-warning-box p {
-      color: #fca5a5;
-      font-size: 13px;
-      margin: 0;
-      text-align: left;
-    }
+      .cancel-warning-box {
+        background: rgba(220, 38, 38, 0.1);
+        border-left: 4px solid #dc2626;
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 24px;
+      }
 
-    .cancel-modal-buttons {
-      display: flex;
-      gap: 12px;
-    }
+      .cancel-warning-box p {
+        color: #fca5a5;
+        font-size: 13px;
+        margin: 0;
+        text-align: left;
+      }
 
-    .cancel-modal-button {
-      flex: 1;
-      padding: 14px 20px;
-      border: none;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
+      .cancel-modal-buttons {
+        display: flex;
+        gap: 12px;
+      }
 
-    .cancel-modal-button.secondary {
-      background: rgba(255, 255, 255, 0.1);
-      color: #9ca3af;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
+      .cancel-modal-button {
+        flex: 1;
+        padding: 14px 20px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
 
-    .cancel-modal-button.secondary:hover {
-      background: rgba(255, 255, 255, 0.15);
-      color: white;
-    }
+      .cancel-modal-button.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: #9ca3af;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
 
-    .cancel-modal-button.danger {
-      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-      color: white;
-      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
-    }
+      .cancel-modal-button.secondary:hover {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+      }
 
-    .cancel-modal-button.danger:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
-    }
-  </style>
+      .cancel-modal-button.danger {
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        color: white;
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+      }
+
+      .cancel-modal-button.danger:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+      }
+    </style>
   </head>
   <body>
     <!-- Matrix Background -->
@@ -1343,7 +1344,7 @@
           if (response.ok) {
             const data = await response.json();
             const investigation = data.investigations.find(
-              (inv) => inv.id === invId
+              (inv) => inv.id === invId,
             );
 
             if (investigation && investigation.status === "in_progress") {
@@ -1395,7 +1396,7 @@
             // Procurar investigação ativa deste serviço
             const activeInv = data.investigations.find(
               (inv) =>
-                inv.serviceType === "Instagram" && inv.status === "in_progress"
+                inv.serviceType === "Instagram" && inv.status === "in_progress",
             );
 
             if (activeInv) {
@@ -1454,7 +1455,7 @@
             const errorData = await response.json();
             if (errorData.error === "Créditos insuficientes") {
               alert(
-                `Créditos insuficientes!\n\nNecessário: ${errorData.required} créditos\nSeu saldo: ${errorData.current} créditos\n\nCompre mais créditos para continuar.`
+                `Créditos insuficientes!\n\nNecessário: ${errorData.required} créditos\nSeu saldo: ${errorData.current} créditos\n\nCompre mais créditos para continuar.`,
               );
               return;
             }
@@ -1519,7 +1520,7 @@
                     Authorization: `Bearer ${token}`,
                   },
                   body: JSON.stringify({ progress }),
-                }
+                },
               );
             } catch (error) {
               console.error("Erro ao atualizar progresso:", error);
@@ -1579,7 +1580,7 @@
                   Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ status: "completed" }),
-              }
+              },
             );
           } catch (error) {
             console.error("Erro ao completar investigação:", error);
@@ -1591,25 +1592,25 @@
 
       // Cancel analysis - Mostra modal de confirmação
       function cancelAnalysis() {
-        const modal = document.getElementById('cancelModal');
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        const modal = document.getElementById("cancelModal");
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
       }
 
       // Fechar modal de cancelamento
       function closeCancelModal() {
-        const modal = document.getElementById('cancelModal');
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+        const modal = document.getElementById("cancelModal");
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
       }
 
       // Confirmar cancelamento
       async function confirmCancelAnalysis() {
         closeCancelModal();
-        
+
         const token = localStorage.getItem("authToken");
         console.log("🔴 Cancelando investigação:", currentInvestigationId);
-        
+
         if (currentInvestigationId && token) {
           try {
             const response = await fetch(
@@ -1621,9 +1622,9 @@
                   Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ status: "cancelled" }),
-              }
+              },
             );
-            
+
             if (response.ok) {
               console.log("✅ Investigação cancelada com sucesso!");
             } else {
@@ -1633,14 +1634,14 @@
             console.error("❌ Erro ao cancelar investigação:", error);
           }
         }
-        
+
         clearInterval(analysisInterval);
         document.getElementById("analysisCard").classList.remove("active");
         document.getElementById("usernameInput").value = "";
         currentProgress = 0;
         currentStep = 0;
         currentInvestigationId = null;
-        
+
         // Redirecionar ao dashboard
         window.location.href = "/pages/dashboard/";
       }
@@ -1667,14 +1668,21 @@
             // Calcular próximo passo (cada passo = ~16.67%)
             const stepSize = 100 / 6;
             const currentStepCalc = Math.floor(currentProgress / stepSize);
-            const nextProgress = Math.min((currentStepCalc + 1) * stepSize, 100);
+            const nextProgress = Math.min(
+              (currentStepCalc + 1) * stepSize,
+              100,
+            );
 
             if (currentProgress >= 100) {
               alert("Investigação já está completa!");
               return;
             }
 
-            const userConfirmed = await showAccelerateModal(currentProgress, nextProgress, credits);
+            const userConfirmed = await showAccelerateModal(
+              currentProgress,
+              nextProgress,
+              credits,
+            );
 
             if (userConfirmed) {
               const res = await fetch(
@@ -1685,7 +1693,7 @@
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                   },
-                }
+                },
               );
 
               if (res.ok) {
@@ -1717,47 +1725,49 @@
         }
       }
 
-      
-    let accelerateCallback = null;
+      let accelerateCallback = null;
 
-    function showAccelerateModal(currentProgress, nextProgress, credits) {
-      const modal = document.getElementById('accelerateModal');
-      
-      document.getElementById('modalCurrentProgress').textContent = Math.floor(currentProgress) + '%';
-      document.getElementById('modalNextProgress').textContent = Math.floor(nextProgress) + '%';
-      document.getElementById('modalCurrentBalance').textContent = credits + ' créditos';
-      
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      function showAccelerateModal(currentProgress, nextProgress, credits) {
+        const modal = document.getElementById("accelerateModal");
 
-      return new Promise((resolve) => {
-        accelerateCallback = resolve;
-      });
-    }
+        document.getElementById("modalCurrentProgress").textContent =
+          Math.floor(currentProgress) + "%";
+        document.getElementById("modalNextProgress").textContent =
+          Math.floor(nextProgress) + "%";
+        document.getElementById("modalCurrentBalance").textContent =
+          credits + " créditos";
 
-    function closeAccelerateModal() {
-      const modal = document.getElementById('accelerateModal');
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-      
-      if (accelerateCallback) {
-        accelerateCallback(false);
-        accelerateCallback = null;
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+        return new Promise((resolve) => {
+          accelerateCallback = resolve;
+        });
       }
-    }
 
-    function confirmAccelerate() {
-      const modal = document.getElementById('accelerateModal');
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
-      
-      if (accelerateCallback) {
-        accelerateCallback(true);
-        accelerateCallback = null;
+      function closeAccelerateModal() {
+        const modal = document.getElementById("accelerateModal");
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+
+        if (accelerateCallback) {
+          accelerateCallback(false);
+          accelerateCallback = null;
+        }
       }
-    }
 
-    function showCreditsModal(currentCredits, requiredCredits) {
+      function confirmAccelerate() {
+        const modal = document.getElementById("accelerateModal");
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+
+        if (accelerateCallback) {
+          accelerateCallback(true);
+          accelerateCallback = null;
+        }
+      }
+
+      function showCreditsModal(currentCredits, requiredCredits) {
         const modal = document.getElementById("creditsModal");
         const missingCredits = requiredCredits - currentCredits;
 
@@ -1796,48 +1806,49 @@
 
       // Mostrar modal de 2FA
       async function showTwofaModal() {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem("authToken");
         if (!token) return;
 
         try {
-          const userRes = await fetch('/api/auth/me', {
-            headers: { Authorization: `Bearer ${token}` }
+          const userRes = await fetch("/api/auth/me", {
+            headers: { Authorization: `Bearer ${token}` },
           });
 
           if (userRes.ok) {
             const userData = await userRes.json();
             const credits = userData.user?.credits || 0;
-            
-            const usernameEl = document.getElementById('profileUsername');
-            const username = usernameEl ? usernameEl.textContent : '@usuário';
-            
-            document.getElementById('twofaUsername').textContent = username;
-            document.getElementById('twofaBalance').textContent = credits + ' créditos';
-            
-            const modal = document.getElementById('twofaModal');
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+
+            const usernameEl = document.getElementById("profileUsername");
+            const username = usernameEl ? usernameEl.textContent : "@usuário";
+
+            document.getElementById("twofaUsername").textContent = username;
+            document.getElementById("twofaBalance").textContent =
+              credits + " créditos";
+
+            const modal = document.getElementById("twofaModal");
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden";
           }
         } catch (e) {
-          console.error('Erro ao exibir modal 2FA:', e);
+          console.error("Erro ao exibir modal 2FA:", e);
         }
       }
 
       // Fechar modal de 2FA
       function closeTwofaModal() {
-        const modal = document.getElementById('twofaModal');
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
+        const modal = document.getElementById("twofaModal");
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
       }
 
       // Quebrar 2FA (cobrar 50 créditos)
       async function breakTwofa() {
-        const token = localStorage.getItem('authToken');
+        const token = localStorage.getItem("authToken");
         if (!token) return;
 
         try {
-          const userRes = await fetch('/api/auth/me', {
-            headers: { Authorization: `Bearer ${token}` }
+          const userRes = await fetch("/api/auth/me", {
+            headers: { Authorization: `Bearer ${token}` },
           });
 
           if (userRes.ok) {
@@ -1851,11 +1862,13 @@
             }
 
             closeTwofaModal();
-            alert('✅ Autenticação 2FA quebrada com sucesso!\n\nEm breve você terá acesso aos resultados completos da investigação.');
+            alert(
+              "✅ Autenticação 2FA quebrada com sucesso!\n\nEm breve você terá acesso aos resultados completos da investigação.",
+            );
           }
         } catch (e) {
-          console.error('Erro ao quebrar 2FA:', e);
-          alert('Erro ao processar. Tente novamente.');
+          console.error("Erro ao quebrar 2FA:", e);
+          alert("Erro ao processar. Tente novamente.");
         }
       }
     </script>
@@ -1930,101 +1943,186 @@
         </div>
       </div>
     </div>
-  
-  <!-- Modal de Aceleração -->
-  <div class="accelerate-modal" id="accelerateModal">
-    <div class="accelerate-modal-content">
-      <div class="accelerate-modal-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-        </svg>
-      </div>
-      <h2>Acelerar Investigação</h2>
-      <p>Deseja acelerar para o próximo passo da investigação?</p>
-      
-      <div class="accelerate-progress-info">
-        <div class="accelerate-progress-row">
-          <span class="accelerate-progress-label">Progresso atual:</span>
-          <span class="accelerate-progress-value current" id="modalCurrentProgress">0%</span>
-        </div>
-        <div class="accelerate-progress-row">
-          <span class="accelerate-progress-label">Próximo passo:</span>
-          <span class="accelerate-progress-value next" id="modalNextProgress">0%</span>
-        </div>
-        <div class="accelerate-progress-row">
-          <span class="accelerate-progress-label">Custo:</span>
-          <span class="accelerate-progress-value cost" id="modalAccelerateCost">30 créditos</span>
-        </div>
-        <div class="accelerate-progress-row">
-          <span class="accelerate-progress-label">Seu saldo:</span>
-          <span class="accelerate-progress-value balance" id="modalCurrentBalance">0 créditos</span>
-        </div>
-      </div>
 
-      <div class="accelerate-modal-buttons">
-        <button class="accelerate-modal-button secondary" onclick="closeAccelerateModal()">Cancelar</button>
-        <button class="accelerate-modal-button primary" onclick="confirmAccelerate()">Acelerar Agora</button>
+    <!-- Modal de Aceleração -->
+    <div class="accelerate-modal" id="accelerateModal">
+      <div class="accelerate-modal-content">
+        <div class="accelerate-modal-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+        </div>
+        <h2>Acelerar Investigação</h2>
+        <p>Deseja acelerar para o próximo passo da investigação?</p>
+
+        <div class="accelerate-progress-info">
+          <div class="accelerate-progress-row">
+            <span class="accelerate-progress-label">Progresso atual:</span>
+            <span
+              class="accelerate-progress-value current"
+              id="modalCurrentProgress"
+              >0%</span
+            >
+          </div>
+          <div class="accelerate-progress-row">
+            <span class="accelerate-progress-label">Próximo passo:</span>
+            <span class="accelerate-progress-value next" id="modalNextProgress"
+              >0%</span
+            >
+          </div>
+          <div class="accelerate-progress-row">
+            <span class="accelerate-progress-label">Custo:</span>
+            <span
+              class="accelerate-progress-value cost"
+              id="modalAccelerateCost"
+              >30 créditos</span
+            >
+          </div>
+          <div class="accelerate-progress-row">
+            <span class="accelerate-progress-label">Seu saldo:</span>
+            <span
+              class="accelerate-progress-value balance"
+              id="modalCurrentBalance"
+              >0 créditos</span
+            >
+          </div>
+        </div>
+
+        <div class="accelerate-modal-buttons">
+          <button
+            class="accelerate-modal-button secondary"
+            onclick="closeAccelerateModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            class="accelerate-modal-button primary"
+            onclick="confirmAccelerate()"
+          >
+            Acelerar Agora
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal de Autenticação 2 Fatores -->
-  <div class="twofa-modal" id="twofaModal">
-    <div class="twofa-modal-content">
-      <div class="twofa-modal-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
-          <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-        </svg>
-      </div>
-      <h2>🔐 Autenticação de 2 Fatores Detectada</h2>
-      <div class="twofa-username" id="twofaUsername">@username</div>
-      <p>Esta conta possui autenticação de dois fatores ativada. Para acessar os dados completos, é necessário quebrar essa proteção.</p>
-      
-      <div class="twofa-info-box">
-        <div class="twofa-info-row">
-          <span class="twofa-info-label">Custo para quebrar 2FA:</span>
-          <span class="twofa-info-value cost">50 créditos</span>
+    <!-- Modal de Autenticação 2 Fatores -->
+    <div class="twofa-modal" id="twofaModal">
+      <div class="twofa-modal-content">
+        <div class="twofa-modal-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
         </div>
-        <div class="twofa-info-row">
-          <span class="twofa-info-label">Seu saldo atual:</span>
-          <span class="twofa-info-value balance" id="twofaBalance">0 créditos</span>
+        <h2>🔐 Autenticação de 2 Fatores Detectada</h2>
+        <div class="twofa-username" id="twofaUsername">@username</div>
+        <p>
+          Esta conta possui autenticação de dois fatores ativada. Para acessar
+          os dados completos, é necessário quebrar essa proteção.
+        </p>
+
+        <div class="twofa-info-box">
+          <div class="twofa-info-row">
+            <span class="twofa-info-label">Custo para quebrar 2FA:</span>
+            <span class="twofa-info-value cost">50 créditos</span>
+          </div>
+          <div class="twofa-info-row">
+            <span class="twofa-info-label">Seu saldo atual:</span>
+            <span class="twofa-info-value balance" id="twofaBalance"
+              >0 créditos</span
+            >
+          </div>
         </div>
-      </div>
 
-      <div class="twofa-warning">
-        <p>⚠️ Sem quebrar a autenticação, você não terá acesso aos resultados da investigação.</p>
-      </div>
+        <div class="twofa-warning">
+          <p>
+            ⚠️ Sem quebrar a autenticação, você não terá acesso aos resultados
+            da investigação.
+          </p>
+        </div>
 
-      <div class="twofa-modal-buttons">
-        <button class="twofa-modal-button secondary" onclick="closeTwofaModal()">Cancelar</button>
-        <button class="twofa-modal-button primary" onclick="breakTwofa()">Quebrar 2FA (50 créditos)</button>
+        <div class="twofa-modal-buttons">
+          <button
+            class="twofa-modal-button secondary"
+            onclick="closeTwofaModal()"
+          >
+            Cancelar
+          </button>
+          <button class="twofa-modal-button primary" onclick="breakTwofa()">
+            Quebrar 2FA (50 créditos)
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Modal de Confirmação de Cancelamento -->
-  <div class="cancel-modal" id="cancelModal">
-    <div class="cancel-modal-content">
-      <div class="cancel-modal-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="m15 9-6 6"></path>
-          <path d="m9 9 6 6"></path>
-        </svg>
-      </div>
-      <h2>Cancelar Investigação?</h2>
-      <p>Você está prestes a cancelar esta investigação. Esta ação não pode ser desfeita.</p>
-      
-      <div class="cancel-warning-box">
-        <p>⚠️ Todo o progresso será perdido e os créditos não serão reembolsados.</p>
-      </div>
+    <!-- Modal de Confirmação de Cancelamento -->
+    <div class="cancel-modal" id="cancelModal">
+      <div class="cancel-modal-content">
+        <div class="cancel-modal-icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="m15 9-6 6"></path>
+            <path d="m9 9 6 6"></path>
+          </svg>
+        </div>
+        <h2>Cancelar Investigação?</h2>
+        <p>
+          Você está prestes a cancelar esta investigação. Esta ação não pode ser
+          desfeita.
+        </p>
 
-      <div class="cancel-modal-buttons">
-        <button class="cancel-modal-button secondary" onclick="closeCancelModal()">Voltar</button>
-        <button class="cancel-modal-button danger" onclick="confirmCancelAnalysis()">Sim, Cancelar</button>
+        <div class="cancel-warning-box">
+          <p>
+            ⚠️ Todo o progresso será perdido e os créditos não serão
+            reembolsados.
+          </p>
+        </div>
+
+        <div class="cancel-modal-buttons">
+          <button
+            class="cancel-modal-button secondary"
+            onclick="closeCancelModal()"
+          >
+            Voltar
+          </button>
+          <button
+            class="cancel-modal-button danger"
+            onclick="confirmCancelAnalysis()"
+          >
+            Sim, Cancelar
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

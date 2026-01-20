@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
@@ -23,8 +23,9 @@
       }
 
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
         background-color: var(--bg-dark);
         color: white;
         min-height: 100vh;
@@ -897,7 +898,7 @@
         return result
           ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(
               result[3],
-              16
+              16,
             )}`
           : "171, 88, 244";
       }
@@ -955,8 +956,8 @@
               inv.serviceType === "WhatsApp"
                 ? "+55 " + inv.targetUsername
                 : inv.targetUsername.startsWith("@")
-                ? inv.targetUsername
-                : "@" + inv.targetUsername;
+                  ? inv.targetUsername
+                  : "@" + inv.targetUsername;
 
             return `
             <div class="investigation-card" style="background: rgba(12, 16, 17, 0.95); border: 1px solid rgba(128, 128, 128, 0.15); border-left: 4px solid ${
@@ -969,7 +970,7 @@
               <div style="padding: 16px;">
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                   <div style="width: 40px; height: 40px; background: rgba(${hexToRgb(
-                    config.color
+                    config.color,
                   )}, 0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${
                       config.color
@@ -984,10 +985,10 @@
                     <p style="font-size: 13px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${displayName}</p>
                   </div>
                   <div style="background: rgba(${hexToRgb(
-                    config.color
+                    config.color,
                   )}, 0.15); color: ${
-              config.color
-            }; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 8px;">
+                    config.color
+                  }; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 8px;">
                     ${Math.floor(inv.progress)}%
                   </div>
                 </div>
@@ -995,8 +996,8 @@
                   <div style="height: 100%; background: ${
                     config.color
                   }; border-radius: 999px; transition: width 0.5s; width: ${Math.floor(
-              inv.progress
-            )}%;"></div>
+                    inv.progress,
+                  )}%;"></div>
                 </div>
                 <p style="font-size: 11px; color: #6b7280; margin-top: 8px; text-align: right;">Clique para continuar →</p>
               </div>
@@ -1054,7 +1055,7 @@
         const route = serviceRoutes[serviceName];
         if (!route) {
           alert(
-            `Abrindo serviço: ${serviceName}\n\nEsta funcionalidade está em desenvolvimento.`
+            `Abrindo serviço: ${serviceName}\n\nEsta funcionalidade está em desenvolvimento.`,
           );
           return;
         }
