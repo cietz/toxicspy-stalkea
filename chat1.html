@@ -417,6 +417,18 @@
         window.location.href = directUrl;
       });
     }
+    
+    // Corrigir avatar para usar a mesma imagem do direct.html
+    const chatUserAvatar = document.getElementById('chatUserAvatar');
+    if (chatUserAvatar) {
+      chatUserAvatar.style.backgroundImage = "url('../assets/images/avatars/chat-andresa.jpg')";
+    }
+    
+    // Atualizar todos os avatares de mensagem também
+    const messageAvatars = document.querySelectorAll('.message-avatar');
+    messageAvatars.forEach(avatar => {
+      avatar.style.backgroundImage = "url('../assets/images/avatars/chat-andresa.jpg')";
+    });
   });
 </script>
  

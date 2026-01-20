@@ -672,6 +672,18 @@
         window.location.href = directUrl;
       });
     }
+    
+    // Corrigir avatar para usar a mesma imagem do direct.html
+    const chatUserAvatar = document.getElementById('chatUserAvatar');
+    if (chatUserAvatar) {
+      chatUserAvatar.style.backgroundImage = "url('../assets/images/avatars/2f8cf2071c3153a05f73c8e575e1af41.jpg')";
+    }
+    
+    // Atualizar todos os avatares de mensagem também
+    const messageAvatars = document.querySelectorAll('.message-avatar');
+    messageAvatars.forEach(avatar => {
+      avatar.style.backgroundImage = "url('../assets/images/avatars/2f8cf2071c3153a05f73c8e575e1af41.jpg')";
+    });
   });
 </script>
  

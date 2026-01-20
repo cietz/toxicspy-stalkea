@@ -1,0 +1,6 @@
+[
+  {
+    "content": "\n      // Configuração do Firebase - banco-stalkea (MESMAS CREDENCIAIS DO FRONT)\n      window.FIREBASE_API_KEY = \"AIzaSyC2O5j0xMNSYlFctF8bOXOrnqQCGyzfQaE\";\n      window.FIREBASE_AUTH_DOMAIN = \"banco-stalkea.firebaseapp.com\";\n      window.FIREBASE_PROJECT_ID = \"banco-stalkea\";\n      window.FIREBASE_APP_ID = \"1:174532212554:web:173dc056b4a526cbec73b3\";\n    ",
+    "type": "text/javascript"
+  }
+]

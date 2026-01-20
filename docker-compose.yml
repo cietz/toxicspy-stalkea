@@ -1,0 +1,38 @@
+version: "3.8"
+
+services:
+  stalkea-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stalkea-clone
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      # Adicione aqui suas variáveis de ambiente
+      # - JWT_SECRET=sua-chave-secreta-aqui
+      # - REAL_API_BASE=https://stalkea.ai/api
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "wget",
+          "--no-verbose",
+          "--tries=1",
+          "--spider",
+          "http://localhost:3000/",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    # Limites de recursos (opcional, ajuste conforme sua VPS)
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
