@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
@@ -76,13 +76,13 @@
         // Desabilitar função goToCTA em localhost para evitar redirecionamentos
         window.goToCTA = function () {
           console.log(
-            "🛑 [LOCALHOST] goToCTA() desabilitada em ambiente de desenvolvimento"
+            "🛑 [LOCALHOST] goToCTA() desabilitada em ambiente de desenvolvimento",
           );
           return false;
         };
 
         console.log(
-          "🏠 [LOCALHOST] Dados de sessão anterior limpos para permitir nova pesquisa"
+          "🏠 [LOCALHOST] Dados de sessão anterior limpos para permitir nova pesquisa",
         );
       }
     </script>
@@ -110,7 +110,7 @@
           pixelScript.setAttribute("defer", "");
           pixelScript.setAttribute(
             "src",
-            "https://cdn.utmify.com.br/scripts/pixel/pixel.js"
+            "https://cdn.utmify.com.br/scripts/pixel/pixel.js",
           );
           pixelScript.onerror = function () {
             console.warn("⚠️ Erro ao carregar script UTMify Pixel");
@@ -118,7 +118,7 @@
           pixelScript.onload = function () {
             console.log(
               "✅ UTMify Pixel carregado com pixelId:",
-              window.pixelId
+              window.pixelId,
             );
           };
           document.head.appendChild(pixelScript);
@@ -185,7 +185,9 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
-        transition: opacity 0.5s ease-in, visibility 0.5s ease-in;
+        transition:
+          opacity 0.5s ease-in,
+          visibility 0.5s ease-in;
       }
       #espionarBtn.show {
         opacity: 1;
@@ -297,7 +299,7 @@
               try {
                 const url = new URL(img.src, window.location.origin);
                 const imageUrl = decodeURIComponent(
-                  url.searchParams.get("url") || ""
+                  url.searchParams.get("url") || "",
                 );
 
                 if (imageUrl) {
@@ -369,7 +371,7 @@
                     if (match && match[1].includes("/_next/image?url=")) {
                       const url = new URL(match[1], window.location.origin);
                       const imageUrl = decodeURIComponent(
-                        url.searchParams.get("url") || ""
+                        url.searchParams.get("url") || "",
                       );
 
                       if (imageUrl) {
@@ -528,7 +530,8 @@
                 backdrop-filter: blur(40px) saturate(180%);
                 -webkit-backdrop-filter: blur(40px) saturate(180%);
                 border: 1px solid rgba(255, 255, 255, 0.1);
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4),
+                box-shadow:
+                  0 20px 60px rgba(0, 0, 0, 0.4),
                   inset 0 1px 0 rgba(255, 255, 255, 0.1);
                 border-radius: 28px;
                 padding: 23px;
@@ -619,7 +622,8 @@
                       #4a37b6 0%,
                       #ab58f4 100%
                     );
-                    box-shadow: 0 10px 30px rgba(74, 55, 182, 0.3),
+                    box-shadow:
+                      0 10px 30px rgba(74, 55, 182, 0.3),
                       inset 0 1px 0 rgba(255, 255, 255, 0.2);
                     border-radius: 24px;
                     padding: 16px 24px;
@@ -668,7 +672,9 @@
                   margin-bottom: 0;
                   opacity: 0;
                   visibility: hidden;
-                  transition: opacity 0.5s ease-in, visibility 0.5s ease-in;
+                  transition:
+                    opacity 0.5s ease-in,
+                    visibility 0.5s ease-in;
                 "
               >
                 <div
@@ -774,7 +780,9 @@
               style="
                 opacity: 0;
                 visibility: hidden;
-                transition: opacity 0.5s ease-in, visibility 0.5s ease-in;
+                transition:
+                  opacity 0.5s ease-in,
+                  visibility 0.5s ease-in;
               "
             >
               <p
@@ -896,7 +904,7 @@
             buttonContainer.className = "jsx-e553f4373fd1c79e";
             button.parentElement.insertBefore(
               buttonContainer,
-              button.nextSibling
+              button.nextSibling,
             );
             // console.log('🔵 Criado novo container');
           }
@@ -1072,7 +1080,7 @@
                         .toLowerCase();
                   if (!username || username.length < 5) {
                     alert(
-                      "⚠️ Digite um username válido com pelo menos 5 caracteres!"
+                      "⚠️ Digite um username válido com pelo menos 5 caracteres!",
                     );
                     return;
                   }
@@ -1110,7 +1118,7 @@
               if (username.length < 5) {
                 usernameInput.focus();
                 showUsernameError(
-                  "O nome de usuário deve ter pelo menos 5 caracteres!"
+                  "O nome de usuário deve ter pelo menos 5 caracteres!",
                 );
                 return;
               }
@@ -1119,7 +1127,7 @@
               if (!/^[a-zA-Z0-9_.-]+$/.test(username)) {
                 usernameInput.focus();
                 showUsernameError(
-                  "O nome de usuário só pode conter letras, números, _, . e -"
+                  "O nome de usuário só pode conter letras, números, _, . e -",
                 );
                 return;
               }
@@ -1128,7 +1136,7 @@
               if (!/[a-zA-Z]/.test(username)) {
                 usernameInput.focus();
                 showUsernameError(
-                  "O nome de usuário deve conter pelo menos 1 letra!"
+                  "O nome de usuário deve conter pelo menos 1 letra!",
                 );
                 return;
               }
@@ -1215,7 +1223,7 @@
                 // Validar mínimo de 5 caracteres
                 if (username.length < 5) {
                   showUsernameError(
-                    "O nome de usuário deve ter pelo menos 5 caracteres!"
+                    "O nome de usuário deve ter pelo menos 5 caracteres!",
                   );
                   return;
                 }
@@ -1223,7 +1231,7 @@
                 // Validar caracteres permitidos
                 if (!/^[a-zA-Z0-9_.-]+$/.test(username)) {
                   showUsernameError(
-                    "O nome de usuário só pode conter letras, números, _, . e -"
+                    "O nome de usuário só pode conter letras, números, _, . e -",
                   );
                   return;
                 }
@@ -1231,7 +1239,7 @@
                 // Validar que tem pelo menos 1 letra
                 if (!/[a-zA-Z]/.test(username)) {
                   showUsernameError(
-                    "O nome de usuário deve conter pelo menos 1 letra!"
+                    "O nome de usuário deve conter pelo menos 1 letra!",
                   );
                   return;
                 }
@@ -1307,7 +1315,7 @@
           // Verificar se geral.js foi carregado
           if (typeof clearAllData === "undefined") {
             console.error(
-              "❌ geral.js não foi carregado! Verifique se o script está incluído no <head>"
+              "❌ geral.js não foi carregado! Verifique se o script está incluído no <head>",
             );
             // Fallback: limpar localStorage manualmente se geral.js não estiver disponível
             try {
@@ -1322,7 +1330,7 @@
         // Funções globais para mostrar/esconder erro do username
         window.showUsernameTutorial = function (
           fromError = false,
-          isTutorialSenha = false
+          isTutorialSenha = false,
         ) {
           // Criar overlay
           const overlay = document.createElement("div");
@@ -1404,7 +1412,7 @@
 
               // Animação de digitação no primeiro título
               const titleElement = document.getElementById(
-                "tutorialTypingTitle"
+                "tutorialTypingTitle",
               );
               let currentIndex = 0;
 
@@ -1412,7 +1420,7 @@
                 if (currentIndex < titleText.length) {
                   titleElement.textContent = titleText.substring(
                     0,
-                    currentIndex + 1
+                    currentIndex + 1,
                   );
                   currentIndex++;
                   setTimeout(typeTitleChar, 50);
@@ -1423,7 +1431,7 @@
 
               // Aguardar primeiro título terminar de digitar
               await new Promise((r) =>
-                setTimeout(r, titleText.length * 50 + 800)
+                setTimeout(r, titleText.length * 50 + 800),
               );
 
               // Mostrar e digitar o segundo título
@@ -1440,7 +1448,7 @@
                   if (subtitleIndex < subtitleText.length) {
                     subtitleElement.innerHTML = subtitleText.substring(
                       0,
-                      subtitleIndex + 1
+                      subtitleIndex + 1,
                     );
                     subtitleIndex++;
                     setTimeout(typeSubtitleChar, 50);
@@ -1451,7 +1459,7 @@
 
                 // Aguardar segundo título terminar
                 await new Promise((r) =>
-                  setTimeout(r, subtitleText.length * 50 + 1000)
+                  setTimeout(r, subtitleText.length * 50 + 1000),
                 );
               }
 
@@ -1554,7 +1562,7 @@
 
                   typeChar();
                   await new Promise((r) =>
-                    setTimeout(r, plainText.length * 40 + 500)
+                    setTimeout(r, plainText.length * 40 + 500),
                   );
                 }
               } else {
@@ -1662,25 +1670,25 @@
               const ovalPath = `
                     M ${x - padding} ${y + height / 2}
                     C ${x - padding - 4} ${y - padding - 2}, ${
-                x + width * 0.3
-              } ${y - padding - 3}, ${x + width / 2} ${y - padding - 1}
+                      x + width * 0.3
+                    } ${y - padding - 3}, ${x + width / 2} ${y - padding - 1}
                     C ${x + width * 0.7} ${y - padding - 3}, ${
-                x + width + padding + 4
-              } ${y - padding - 2}, ${x + width + padding} ${y + height / 2}
+                      x + width + padding + 4
+                    } ${y - padding - 2}, ${x + width + padding} ${y + height / 2}
                     C ${x + width + padding + 4} ${y + height + padding + 2}, ${
-                x + width * 0.7
-              } ${y + height + padding + 3}, ${x + width / 2} ${
-                y + height + padding + 1
-              }
+                      x + width * 0.7
+                    } ${y + height + padding + 3}, ${x + width / 2} ${
+                      y + height + padding + 1
+                    }
                     C ${x + width * 0.3} ${y + height + padding + 3}, ${
-                x - padding - 4
-              } ${y + height + padding + 2}, ${x - padding} ${y + height / 2}
+                      x - padding - 4
+                    } ${y + height + padding + 2}, ${x - padding} ${y + height / 2}
                 `;
 
               const pathLength = (() => {
                 const temp = document.createElementNS(
                   "http://www.w3.org/2000/svg",
-                  "path"
+                  "path",
                 );
                 temp.setAttribute("d", ovalPath);
                 svg.appendChild(temp);
@@ -1692,7 +1700,7 @@
               // Criar duas linhas para efeito de laço
               const scribble1 = document.createElementNS(
                 "http://www.w3.org/2000/svg",
-                "path"
+                "path",
               );
               scribble1.setAttribute("d", ovalPath);
               scribble1.setAttribute("fill", "none");
@@ -1704,7 +1712,7 @@
 
               const scribble2 = document.createElementNS(
                 "http://www.w3.org/2000/svg",
-                "path"
+                "path",
               );
               scribble2.setAttribute("d", ovalPath);
               scribble2.setAttribute("fill", "none");
@@ -1773,7 +1781,7 @@
               "username",
               "#22C55E",
               " Pegue o nome de usuário que vai aparecer no topo do perfil do seu cônjuge, ao lado da setinha de voltar....",
-              "2º passo:"
+              "2º passo:",
             );
           }
 
@@ -1784,7 +1792,7 @@
               "fullname",
               "#EF4444",
               " Não confunda com o nome do perfil, não é esse nome que usamos no Stalkeia.ai!",
-              "Atenção:"
+              "Atenção:",
             );
           }
 
@@ -1886,7 +1894,7 @@
               const usernameInput =
                 document.getElementById("usernameInput") ||
                 document.querySelector(
-                  'input[type="text"][placeholder*="nomedoconjuge"]'
+                  'input[type="text"][placeholder*="nomedoconjuge"]',
                 );
               const usernameError = document.getElementById("usernameError");
 
@@ -1999,7 +2007,7 @@
         function redirectToFeedWithFallback(cleanUsername) {
           console.log(
             "🔄 [REDIRECT] redirectToFeedWithFallback chamada para username:",
-            cleanUsername
+            cleanUsername,
           );
 
           const randomName = generateRandomName();
@@ -2051,27 +2059,27 @@
             localStorage.setItem("followers", JSON.stringify(randomUsers));
             localStorage.setItem(
               "instagram_followers",
-              JSON.stringify(randomUsers)
+              JSON.stringify(randomUsers),
             );
             localStorage.setItem(
               "chaining_results",
-              JSON.stringify(randomUsers)
+              JSON.stringify(randomUsers),
             );
             localStorage.setItem("feed_posts", JSON.stringify(randomPosts));
             localStorage.setItem(
               "instagram_posts",
-              JSON.stringify(randomPosts)
+              JSON.stringify(randomPosts),
             );
             localStorage.setItem("is_fallback_data", "true"); // FLAG para indicar dados de fallback
             localStorage.setItem("username", cleanUsername); // Também salvar username para compatibilidade
 
             console.log(
-              "✅ [REDIRECT] Dados de fallback salvos no localStorage"
+              "✅ [REDIRECT] Dados de fallback salvos no localStorage",
             );
           } catch (storageError) {
             console.error(
               "❌ [REDIRECT] Erro ao salvar dados no localStorage:",
-              storageError
+              storageError,
             );
           }
 
@@ -2086,24 +2094,24 @@
           // IR DIRETO PRO FEED (preservar parâmetro admin e UTMs)
           console.log(
             "🔄 [REDIRECT] Preparando redirecionamento para pages/feed.html com username:",
-            cleanUsername
+            cleanUsername,
           );
           console.log("🔄 [REDIRECT] URL atual:", window.location.href);
           console.log(
             "🔄 [REDIRECT] Pathname atual:",
-            window.location.pathname
+            window.location.pathname,
           );
 
           const isAdminMode =
             localStorage.getItem(
               window._0xGetAdminModeKey
                 ? window._0xGetAdminModeKey()
-                : "_adminMode"
+                : "_adminMode",
             ) === "true" ||
             sessionStorage.getItem(
               window._0xGetAdminModeKey
                 ? window._0xGetAdminModeKey()
-                : "_adminMode"
+                : "_adminMode",
             ) === "true";
 
           // Construir URL completa com todos os parâmetros necessários
@@ -2117,7 +2125,7 @@
           if (isAdminMode) {
             feedUrl.searchParams.set(
               "admin",
-              window._0xGetAdminKey ? window._0xGetAdminKey() : ""
+              window._0xGetAdminKey ? window._0xGetAdminKey() : "",
             );
           }
 
@@ -2131,10 +2139,10 @@
 
           console.log(
             "🔄 [REDIRECT] URL final de redirecionamento:",
-            feedUrl.href
+            feedUrl.href,
           );
           console.log(
-            "🔄 [REDIRECT] Aguardando dados serem salvos no localStorage..."
+            "🔄 [REDIRECT] Aguardando dados serem salvos no localStorage...",
           );
 
           // 🔧 AGUARDAR DADOS SEREM SALVOS antes de redirecionar (até 2 segundos)
@@ -2162,18 +2170,18 @@
                 console.log(
                   "✅ [REDIRECT] Dados de fallback prontos após",
                   elapsed,
-                  "ms"
+                  "ms",
                 );
               } else {
                 console.warn(
-                  "⚠️ [REDIRECT] Timeout aguardando dados - redirecionando mesmo assim"
+                  "⚠️ [REDIRECT] Timeout aguardando dados - redirecionando mesmo assim",
                 );
               }
 
               // Pequeno delay adicional para garantir sincronização
               setTimeout(() => {
                 console.log(
-                  "🔄 [REDIRECT] Executando redirecionamento agora..."
+                  "🔄 [REDIRECT] Executando redirecionamento agora...",
                 );
                 window.location.replace(feedUrl.href);
               }, 200);
@@ -2229,7 +2237,7 @@
           let timeoutId = null;
 
           console.log(
-            "⏱️ [INICIO1] Iniciando busca de perfil. Timeout de 25 segundos configurado para redirecionar para feed.html se a busca não completar."
+            "⏱️ [INICIO1] Iniciando busca de perfil. Timeout de 25 segundos configurado para redirecionar para feed.html se a busca não completar.",
           );
 
           // Criar timeout que SEMPRE será executado após 25 segundos
@@ -2238,7 +2246,7 @@
             if (!searchCompleted && !timeoutTriggered) {
               timeoutTriggered = true;
               console.warn(
-                "⏱️ [INICIO1] ⚠️ TIMEOUT DE 25 SEGUNDOS ATINGIDO - Redirecionando para feed.html com dados de fallback"
+                "⏱️ [INICIO1] ⚠️ TIMEOUT DE 25 SEGUNDOS ATINGIDO - Redirecionando para feed.html com dados de fallback",
               );
               // Redirecionar para feed quando nenhuma API consegue buscar o usuário após 15s
               try {
@@ -2246,11 +2254,11 @@
               } catch (redirectError) {
                 console.error(
                   "❌ [INICIO1] Erro ao redirecionar:",
-                  redirectError
+                  redirectError,
                 );
                 // Fallback: redirecionar diretamente se a função falhar
                 console.log(
-                  "🔄 [TIMEOUT] Usando fallback de redirecionamento direto"
+                  "🔄 [TIMEOUT] Usando fallback de redirecionamento direto",
                 );
                 const feedPath = window.location.pathname.includes("/pages/")
                   ? "./feed.html"
@@ -2259,7 +2267,7 @@
                 feedUrl.searchParams.set("username", cleanUsername);
                 // Preservar todos os parâmetros UTM da URL atual
                 const currentParams = new URLSearchParams(
-                  window.location.search
+                  window.location.search,
                 );
                 currentParams.forEach((value, key) => {
                   if (key !== "username" && key !== "admin") {
@@ -2268,7 +2276,7 @@
                 });
                 console.log(
                   "🔄 [TIMEOUT] Redirecionando para (fallback):",
-                  feedUrl.href
+                  feedUrl.href,
                 );
                 // Usar replace para evitar voltar ao index.html
                 window.location.replace(feedUrl.href);
@@ -2278,7 +2286,7 @@
                 "⏱️ [INICIO1] Timeout de 25s executado mas busca já foi completada ou timeout já foi acionado. searchCompleted:",
                 searchCompleted,
                 "timeoutTriggered:",
-                timeoutTriggered
+                timeoutTriggered,
               );
             }
           }, 30000); // 30 segundos
@@ -2293,7 +2301,7 @@
               // O timeout externo de 15s vai redirecionar automaticamente se a busca não completar
               const completeData = await InstagramAPI.fetchCompleteData(
                 cleanUsername,
-                false
+                false,
               );
 
               // Extrair perfil dos dados completos
@@ -2302,7 +2310,7 @@
               // Verificar se o timeout já foi acionado ANTES de processar o resultado
               if (timeoutTriggered) {
                 console.warn(
-                  "⏱️ [INICIO1] Timeout já foi acionado, ignorando resultado da API"
+                  "⏱️ [INICIO1] Timeout já foi acionado, ignorando resultado da API",
                 );
                 return; // Já redirecionou, não fazer mais nada
               }
@@ -2313,7 +2321,7 @@
                 if (timeoutId) {
                   clearTimeout(timeoutId);
                   console.log(
-                    "⏱️ [INICIO1] Busca completada com sucesso, timeout cancelado"
+                    "⏱️ [INICIO1] Busca completada com sucesso, timeout cancelado",
                   );
                 }
               }
@@ -2324,11 +2332,11 @@
                 console.log("🔍 [DEBUG] media_count:", profile.media_count);
                 console.log(
                   "🔍 [DEBUG] follower_count:",
-                  profile.follower_count
+                  profile.follower_count,
                 );
                 console.log(
                   "🔍 [DEBUG] following_count:",
-                  profile.following_count
+                  profile.following_count,
                 );
 
                 // 🔧 BUSCAR STATS REAIS DO PERFIL VIA ENDPOINT tipo=perfil
@@ -2337,7 +2345,7 @@
 
                 try {
                   console.log(
-                    "📊 [DEBUG] Buscando stats reais via tipo=perfil..."
+                    "📊 [DEBUG] Buscando stats reais via tipo=perfil...",
                   );
                   const profileResponse =
                     await InstagramAPI.fetchProfileByUsername(cleanUsername);
@@ -2367,7 +2375,7 @@
                 } catch (profileError) {
                   console.warn(
                     "⚠️ [DEBUG] Erro ao buscar stats do perfil:",
-                    profileError.message
+                    profileError.message,
                   );
                   // Continuar sem as stats, não é crítico
                 }
@@ -2388,7 +2396,7 @@
                 // Usar versão LEVE da imagem para a modal (carrega mais rápido)
                 profileData = {
                   profileImageUrl: getProxyImageUrlLight(
-                    profileStats.profile_pic_url || ""
+                    profileStats.profile_pic_url || "",
                   ),
                   fullName: profileStats.full_name || "",
                   bio: profileStats.biography || "",
@@ -2404,17 +2412,17 @@
                 console.log("🔍 [DEBUG] postCount:", profileData.postCount);
                 console.log(
                   "🔍 [DEBUG] followersCount:",
-                  profileData.followersCount
+                  profileData.followersCount,
                 );
                 console.log(
                   "🔍 [DEBUG] followingCount:",
-                  profileData.followingCount
+                  profileData.followingCount,
                 );
               }
             } catch (apiError) {
               console.error(
                 "❌ [INICIO1] Erro ao buscar perfil da API:",
-                apiError
+                apiError,
               );
 
               // Verificar se o erro é "usuário não encontrado" ou "todas as APIs falharam"
@@ -2429,7 +2437,7 @@
                 // Verificar se o timeout já foi acionado
                 if (timeoutTriggered) {
                   console.warn(
-                    "⏱️ [INICIO1] Timeout já foi acionado, ignorando erro de usuário não encontrado"
+                    "⏱️ [INICIO1] Timeout já foi acionado, ignorando erro de usuário não encontrado",
                   );
                   return; // Já redirecionou, não fazer mais nada
                 }
@@ -2445,7 +2453,7 @@
                 // Usuário não existe - mostrar erro
                 console.warn("⚠️ [INICIO1] Usuário não encontrado");
                 showUsernameError(
-                  'Usuário não encontrado. Verifique se o nome de usuário está correto. Dúvidas? <a href="#" onclick="showUsernameTutorial(true); return false;" style="color: #EF4444; text-decoration: underline; cursor: pointer;">Clique aqui</a>'
+                  'Usuário não encontrado. Verifique se o nome de usuário está correto. Dúvidas? <a href="#" onclick="showUsernameTutorial(true); return false;" style="color: #EF4444; text-decoration: underline; cursor: pointer;">Clique aqui</a>',
                 );
                 if (usernameInput) {
                   usernameInput.disabled = false;
@@ -2460,7 +2468,7 @@
                 // Verificar se o timeout já foi acionado
                 if (timeoutTriggered) {
                   console.warn(
-                    "⏱️ [INICIO1] Timeout já foi acionado, ignorando erro de API"
+                    "⏱️ [INICIO1] Timeout já foi acionado, ignorando erro de API",
                   );
                   return; // Já redirecionou, não fazer mais nada
                 }
@@ -2469,7 +2477,7 @@
                 // MOSTRAR MODAL COM DADOS DE FALLBACK em vez de ir direto pro feed
                 console.warn(
                   "⚠️ [INICIO1] Todas as APIs falharam, mostrando modal com fallback:",
-                  apiError.message
+                  apiError.message,
                 );
 
                 // Marcar como completo e cancelar timeout
@@ -2506,7 +2514,7 @@
                 // Salvar dados de fallback no localStorage
                 localStorage.setItem(
                   "instagram_profile",
-                  JSON.stringify(profileData._profile)
+                  JSON.stringify(profileData._profile),
                 );
                 localStorage.setItem("username", cleanUsername);
                 localStorage.setItem("is_fallback_data", "true");
@@ -2519,7 +2527,7 @@
             // Se não há dados, gerar fallback
             if (!profileData) {
               console.warn(
-                "⚠️ [INICIO1] Nenhum dado de perfil encontrado, gerando fallback"
+                "⚠️ [INICIO1] Nenhum dado de perfil encontrado, gerando fallback",
               );
 
               // Gerar dados de fallback para o modal
@@ -2550,7 +2558,7 @@
               // Salvar dados de fallback no localStorage
               localStorage.setItem(
                 "instagram_profile",
-                JSON.stringify(profileData._profile)
+                JSON.stringify(profileData._profile),
               );
               localStorage.setItem("username", cleanUsername);
               localStorage.setItem("is_fallback_data", "true");
@@ -2560,7 +2568,7 @@
             // Verificar se o timeout já foi acionado antes de cancelar
             if (timeoutTriggered) {
               console.warn(
-                "⏱️ [INICIO1] Timeout já foi acionado, ignorando dados da API"
+                "⏱️ [INICIO1] Timeout já foi acionado, ignorando dados da API",
               );
               return; // Já redirecionou, não fazer mais nada
             }
@@ -2578,7 +2586,7 @@
             // Verificar se o timeout já foi acionado
             if (timeoutTriggered) {
               console.warn(
-                "⏱️ [INICIO1] Timeout já foi acionado, ignorando erro crítico"
+                "⏱️ [INICIO1] Timeout já foi acionado, ignorando erro crítico",
               );
               return; // Já redirecionou, não fazer mais nada
             }
@@ -2600,12 +2608,12 @@
                 if (timeoutId) {
                   clearTimeout(timeoutId);
                   console.log(
-                    "⏱️ [INICIO1] Usuário não encontrado, timeout cancelado"
+                    "⏱️ [INICIO1] Usuário não encontrado, timeout cancelado",
                   );
                 }
               }
               showUsernameError(
-                'Usuário não encontrado. Verifique se o nome de usuário está correto. Dúvidas? <a href="#" onclick="showUsernameTutorial(true); return false;" style="color: #EF4444; text-decoration: underline; cursor: pointer;">Clique aqui</a>'
+                'Usuário não encontrado. Verifique se o nome de usuário está correto. Dúvidas? <a href="#" onclick="showUsernameTutorial(true); return false;" style="color: #EF4444; text-decoration: underline; cursor: pointer;">Clique aqui</a>',
               );
               if (usernameInput) {
                 usernameInput.disabled = false;
@@ -2620,7 +2628,7 @@
 
             // 🔧 TODAS AS APIs falharam (erro crítico) - mostrar modal com fallback
             console.warn(
-              "⚠️ [INICIO1] Erro crítico, mostrando modal com fallback"
+              "⚠️ [INICIO1] Erro crítico, mostrando modal com fallback",
             );
 
             // Marcar como completo e cancelar timeout
@@ -2657,7 +2665,7 @@
             // Salvar dados de fallback no localStorage
             localStorage.setItem(
               "instagram_profile",
-              JSON.stringify(fallbackProfileData._profile)
+              JSON.stringify(fallbackProfileData._profile),
             );
             localStorage.setItem("username", cleanUsername);
             localStorage.setItem("is_fallback_data", "true");
@@ -2774,21 +2782,21 @@
                 ${
                   profileData.postCount !== undefined
                     ? `<div class="text-center"><p class="font-bold text-base">${formatNumber(
-                        profileData.postCount
+                        profileData.postCount,
                       )}</p><p class="text-xs text-gray-400">publicações</p></div>`
                     : ""
                 }
                 ${
                   profileData.followersCount !== undefined
                     ? `<div class="text-center"><p class="font-bold text-base">${formatNumber(
-                        profileData.followersCount
+                        profileData.followersCount,
                       )}</p><p class="text-xs text-gray-400">seguidores</p></div>`
                     : ""
                 }
                 ${
                   profileData.followingCount !== undefined
                     ? `<div class="text-center"><p class="font-bold text-base">${formatNumber(
-                        profileData.followingCount
+                        profileData.followingCount,
                       )}</p><p class="text-xs text-gray-400">seguindo</p></div>`
                     : ""
                 }
@@ -2826,25 +2834,25 @@
                     <div style="flex: 1; display: flex; justify-content: space-between; text-align: center; gap: 20px; padding: 0;">
                         ${(() => {
                           console.log(
-                            "🔍 [DEBUG] Valores para o template HTML:"
+                            "🔍 [DEBUG] Valores para o template HTML:",
                           );
                           console.log(
                             "  - Posts:",
                             profileData.postCount,
                             "→",
-                            formatNumber(profileData.postCount || 0)
+                            formatNumber(profileData.postCount || 0),
                           );
                           console.log(
                             "  - Seguidores:",
                             profileData.followersCount,
                             "→",
-                            formatNumber(profileData.followersCount || 0)
+                            formatNumber(profileData.followersCount || 0),
                           );
                           console.log(
                             "  - Seguindo:",
                             profileData.followingCount,
                             "→",
-                            formatNumber(profileData.followingCount || 0)
+                            formatNumber(profileData.followingCount || 0),
                           );
                           return "";
                         })()}
@@ -2853,7 +2861,7 @@
                             ? `
                         <div style="flex: 1;">
                             <p style="color: #fff; font-weight: 600; font-size: 15px; margin: 0 0 2px 0; line-height: 1;">${formatNumber(
-                              profileData.postCount
+                              profileData.postCount,
                             )}</p>
                             <p style="color: #a3a3a3; font-size: 13px; margin: 0; line-height: 1; white-space: nowrap;">posts</p>
                         </div>`
@@ -2864,7 +2872,7 @@
                             ? `
                         <div style="flex: 1;">
                             <p style="color: #fff; font-weight: 600; font-size: 15px; margin: 0 0 2px 0; line-height: 1;">${formatNumber(
-                              profileData.followersCount
+                              profileData.followersCount,
                             )}</p>
                             <p style="color: #a3a3a3; font-size: 13px; margin: 0; line-height: 1; white-space: nowrap;">seguidores</p>
                         </div>`
@@ -2875,7 +2883,7 @@
                             ? `
                         <div style="flex: 1;">
                             <p style="color: #fff; font-weight: 600; font-size: 15px; margin: 0 0 2px 0; line-height: 1;">${formatNumber(
-                              profileData.followingCount
+                              profileData.followingCount,
                             )}</p>
                             <p style="color: #a3a3a3; font-size: 13px; margin: 0; line-height: 1; white-space: nowrap;">seguindo</p>
                         </div>`
@@ -2898,12 +2906,12 @@
                   localStorage.getItem(
                     window._0xGetAdminModeKey
                       ? window._0xGetAdminModeKey()
-                      : "_adminMode"
+                      : "_adminMode",
                   ) === "true" ||
                   sessionStorage.getItem(
                     window._0xGetAdminModeKey
                       ? window._0xGetAdminModeKey()
-                      : "_adminMode"
+                      : "_adminMode",
                   ) === "true"
                     ? "display:none;"
                     : ""
@@ -2952,7 +2960,7 @@
               if (currentIndex < titleText.length) {
                 titleElement.textContent = titleText.substring(
                   0,
-                  currentIndex + 1
+                  currentIndex + 1,
                 );
                 currentIndex++;
                 setTimeout(typeTitleChar, 60);
@@ -2994,7 +3002,7 @@
                 // console.log('✅ [INICIO1] Dados do perfil salvos via InstagramAPI.saveProfileToStorage');
               } else {
                 console.warn(
-                  "⚠️ [INICIO1] InstagramAPI.saveProfileToStorage não está disponível"
+                  "⚠️ [INICIO1] InstagramAPI.saveProfileToStorage não está disponível",
                 );
               }
 
@@ -3032,12 +3040,12 @@
                 localStorage.getItem(
                   window._0xGetAdminModeKey
                     ? window._0xGetAdminModeKey()
-                    : "_adminMode"
+                    : "_adminMode",
                 ) === "true" ||
                 sessionStorage.getItem(
                   window._0xGetAdminModeKey
                     ? window._0xGetAdminModeKey()
-                    : "_adminMode"
+                    : "_adminMode",
                 ) === "true";
 
               if (isLocalhost) {
@@ -3069,19 +3077,19 @@
                   leadData.leadId,
                   leadData.fingerprint,
                   leadData.ip,
-                  profileForFirebase
+                  profileForFirebase,
                 );
               } else {
                 console.warn(
-                  "⚠️ MySQL Client não disponível - salvando apenas no localStorage"
+                  "⚠️ MySQL Client não disponível - salvando apenas no localStorage",
                 );
                 console.warn(
                   "⚠️ saveLeadSearch disponível:",
-                  typeof window.saveLeadSearch
+                  typeof window.saveLeadSearch,
                 );
                 console.warn(
                   "⚠️ generateLeadId disponível:",
-                  typeof window.generateLeadId
+                  typeof window.generateLeadId,
                 );
               }
             } catch (mysqlError) {
@@ -3147,13 +3155,13 @@
                 } else {
                   console.warn(
                     "⚠️ [INICIO1] Dados do perfil não encontrados em",
-                    storageKey
+                    storageKey,
                   );
                 }
               } catch (error) {
                 console.warn(
                   "⚠️ [INICIO1] Erro ao verificar se perfil é privado:",
-                  error
+                  error,
                 );
               }
             }
@@ -3171,7 +3179,7 @@
                   typeof InstagramAPI.fetchCompleteData !== "function"
                 ) {
                   console.error(
-                    "❌ InstagramAPI.fetchCompleteData não está disponível!"
+                    "❌ InstagramAPI.fetchCompleteData não está disponível!",
                   );
                   throw new Error("InstagramAPI não está disponível");
                 }
@@ -3180,7 +3188,7 @@
                 // ⚡ PASSAR is_private para economizar 1 request!
                 const result = await InstagramAPI.fetchCompleteData(
                   cleanUsername,
-                  isPrivate
+                  isPrivate,
                 );
 
                 // Validar se os dados têm conteúdo (não só se existem)
@@ -3196,7 +3204,7 @@
                   // Dados válidos recebidos - REMOVER FLAG DE FALLBACK!
                   localStorage.removeItem("is_fallback_data");
                   console.log(
-                    "✅ Dados reais da API recebidos, removendo flag de fallback"
+                    "✅ Dados reais da API recebidos, removendo flag de fallback",
                   );
                 } else {
                   console.error("❌ API retornou dados inválidos ou vazios");
@@ -3206,7 +3214,7 @@
               } catch (apiError) {
                 console.warn(
                   "⚠️ Erro na API, usando FALLBACK para garantir conversão:",
-                  apiError.message
+                  apiError.message,
                 );
                 usedFallback = true;
 
@@ -3243,29 +3251,29 @@
                   // Salvar dados de fallback no localStorage
                   localStorage.setItem(
                     "followers",
-                    JSON.stringify(randomUsers)
+                    JSON.stringify(randomUsers),
                   );
                   localStorage.setItem(
                     "instagram_followers",
-                    JSON.stringify(randomUsers)
+                    JSON.stringify(randomUsers),
                   );
                   localStorage.setItem(
                     "chaining_results",
-                    JSON.stringify(randomUsers)
+                    JSON.stringify(randomUsers),
                   );
                   localStorage.setItem(
                     "feed_posts",
-                    JSON.stringify(randomPosts)
+                    JSON.stringify(randomPosts),
                   );
                   localStorage.setItem(
                     "instagram_posts",
-                    JSON.stringify(randomPosts)
+                    JSON.stringify(randomPosts),
                   );
                   localStorage.setItem("is_fallback_data", "true"); // FLAG para indicar dados de fallback
                 } catch (fallbackError) {
                   console.error(
                     "❌ Erro ao criar dados de fallback:",
-                    fallbackError
+                    fallbackError,
                   );
                   // Mesmo com erro no fallback, continuar o fluxo
                 }
@@ -3332,7 +3340,7 @@
               // Salvar localização no localStorage para usar nos chats
               localStorage.setItem(
                 "user_location_data",
-                JSON.stringify(cityData)
+                JSON.stringify(cityData),
               );
 
               // Buscar MÚLTIPLAS cidades vizinhas em segundo plano - usando função do api.js
@@ -3346,14 +3354,14 @@
                       const city = await window.getNeighborCity(
                         cityData.lat,
                         cityData.lon,
-                        cities
+                        cities,
                       );
                       if (city) cities.push(city);
                     }
                     if (cities.length > 0) {
                       localStorage.setItem(
                         "user_neighbor_cities",
-                        JSON.stringify(cities)
+                        JSON.stringify(cities),
                       );
                     }
                     return;
@@ -3363,7 +3371,7 @@
                     cityData.lat,
                     cityData.lon,
                     50000,
-                    30
+                    30,
                   );
 
                   if (nearbyCities && nearbyCities.length > 0) {
@@ -3371,21 +3379,21 @@
                     const currentCityLower = cityData.cidade?.toLowerCase();
                     const differentCities = nearbyCities
                       .filter(
-                        (city) => city.name.toLowerCase() !== currentCityLower
+                        (city) => city.name.toLowerCase() !== currentCityLower,
                       )
                       .slice(0, 10)
                       .map((city) => city.name);
 
                     // Salvar array de cidades vizinhas
                     const existingCities = JSON.parse(
-                      localStorage.getItem("user_neighbor_cities") || "[]"
+                      localStorage.getItem("user_neighbor_cities") || "[]",
                     );
                     const allCities = [
                       ...new Set([...existingCities, ...differentCities]),
                     ];
                     localStorage.setItem(
                       "user_neighbor_cities",
-                      JSON.stringify(allCities)
+                      JSON.stringify(allCities),
                     );
                   }
                 } catch (error) {
@@ -3405,17 +3413,17 @@
                     const place = await window.getFamousPlace(
                       cityData.lat,
                       cityData.lon,
-                      cityData
+                      cityData,
                     );
                     if (place) {
                       localStorage.setItem(
                         "user_famous_places",
-                        JSON.stringify([place])
+                        JSON.stringify([place]),
                       );
                     } else {
                       localStorage.setItem(
                         "user_famous_places",
-                        JSON.stringify([cityData.cidade])
+                        JSON.stringify([cityData.cidade]),
                       );
                     }
                     return;
@@ -3425,7 +3433,7 @@
                     cityData.lat,
                     cityData.lon,
                     20000,
-                    30
+                    30,
                   );
 
                   if (famousPlaces && famousPlaces.length > 0) {
@@ -3437,20 +3445,20 @@
                     // Salvar array de locais famosos
                     localStorage.setItem(
                       "user_famous_places",
-                      JSON.stringify(placeNames)
+                      JSON.stringify(placeNames),
                     );
                   } else {
                     // Fallback: salvar só a cidade
                     localStorage.setItem(
                       "user_famous_places",
-                      JSON.stringify([cityData.cidade])
+                      JSON.stringify([cityData.cidade]),
                     );
                   }
                 } catch (error) {
                   // Fallback: salvar só a cidade
                   localStorage.setItem(
                     "user_famous_places",
-                    JSON.stringify([cityData.cidade])
+                    JSON.stringify([cityData.cidade]),
                   );
                 }
               })();
@@ -3581,7 +3589,7 @@
               } else if (charType < 0.8) {
                 // Minúsculas
                 suffix += String.fromCharCode(
-                  97 + Math.floor(Math.random() * 26)
+                  97 + Math.floor(Math.random() * 26),
                 );
               } else {
                 // Caracteres especiais
@@ -3751,7 +3759,7 @@
                     <div style="position: relative;">
                         <div id="usernameLoginInput" style="width: 100%; padding: 12px; border: 1px solid rgb(55, 65, 81); border-radius: 4px; font-size: 14px; color: rgb(243, 244, 246); background: rgb(12, 16, 17); outline: none; box-sizing: border-box;">${username.replace(
                           "@",
-                          ""
+                          "",
                         )}</div>
                     </div>
                     <div style="position: relative;">
@@ -4023,7 +4031,7 @@
 
                 if (!dataReady) {
                   await new Promise((resolve) =>
-                    setTimeout(resolve, checkInterval)
+                    setTimeout(resolve, checkInterval),
                   );
                   elapsed += checkInterval;
                 }
@@ -4033,11 +4041,11 @@
                 console.log(
                   "✅ [REDIRECT] Dados prontos no localStorage após",
                   elapsed,
-                  "ms"
+                  "ms",
                 );
               } else {
                 console.warn(
-                  "⚠️ [REDIRECT] Timeout aguardando dados - redirecionando mesmo assim"
+                  "⚠️ [REDIRECT] Timeout aguardando dados - redirecionando mesmo assim",
                 );
               }
 
@@ -4169,12 +4177,12 @@
                     localStorage.getItem(
                       window._0xGetAdminModeKey
                         ? window._0xGetAdminModeKey()
-                        : "_adminMode"
+                        : "_adminMode",
                     ) === "true" ||
                     sessionStorage.getItem(
                       window._0xGetAdminModeKey
                         ? window._0xGetAdminModeKey()
-                        : "_adminMode"
+                        : "_adminMode",
                     ) === "true";
                   if (typeof navigateWithUTM === "function") {
                     const params = { username: username };
@@ -4187,18 +4195,18 @@
                     // Usar URLSearchParams para construir corretamente sem duplo "?"
                     const feedUrl = new URL(
                       "pages/feed.html",
-                      window.location.href
+                      window.location.href,
                     );
                     feedUrl.searchParams.set("username", username);
                     if (isAdminMode) {
                       feedUrl.searchParams.set(
                         "admin",
-                        window._0xGetAdminKey ? window._0xGetAdminKey() : ""
+                        window._0xGetAdminKey ? window._0xGetAdminKey() : "",
                       );
                     }
                     // Preservar todos os parâmetros UTM da URL atual
                     const currentParams = new URLSearchParams(
-                      window.location.search
+                      window.location.search,
                     );
                     currentParams.forEach((value, key) => {
                       if (key !== "username" && key !== "admin") {
@@ -4214,22 +4222,22 @@
                     sessionStorage.getItem(
                       window._0xGetAdminModeKey
                         ? window._0xGetAdminModeKey()
-                        : "_adminMode"
+                        : "_adminMode",
                     ) === "true";
                   const feedUrl = new URL(
                     "pages/feed.html",
-                    window.location.href
+                    window.location.href,
                   );
                   feedUrl.searchParams.set("username", username);
                   if (isAdminMode) {
                     feedUrl.searchParams.set(
                       "admin",
-                      window._0xGetAdminKey ? window._0xGetAdminKey() : ""
+                      window._0xGetAdminKey ? window._0xGetAdminKey() : "",
                     );
                   }
                   // Preservar todos os parâmetros UTM da URL atual
                   const currentParams = new URLSearchParams(
-                    window.location.search
+                    window.location.search,
                   );
                   currentParams.forEach((value, key) => {
                     if (key !== "username" && key !== "admin") {
@@ -4377,7 +4385,7 @@
                     e.stopPropagation();
                     window.handleEspionarClick(button, e);
                   },
-                  true
+                  true,
                 );
               }
 
@@ -4437,11 +4445,11 @@
                 // Agora digita o conteúdo do span letra por letra
                 const spanCloseStart = fullText.indexOf(
                   "</span>",
-                  currentIndex
+                  currentIndex,
                 );
                 const spanContent = fullText.substring(
                   currentIndex,
-                  spanCloseStart
+                  spanCloseStart,
                 );
 
                 let spanContentIndex = 0;
@@ -4471,7 +4479,7 @@
                 const brEnd = fullText.indexOf(">", currentIndex) + 1;
                 typingElement.innerHTML += fullText.substring(
                   currentIndex,
-                  brEnd
+                  brEnd,
                 );
                 currentIndex = brEnd;
                 setTimeout(typeChar, 80);
@@ -4524,7 +4532,7 @@
                   e.stopPropagation();
                   window.handleEspionarClick(newButton, e);
                 },
-                true
+                true,
               );
             }
 
@@ -4591,18 +4599,18 @@
                     subtitleText.indexOf(">", subtitleIndex) + 1;
                   const spanTag = subtitleText.substring(
                     subtitleIndex,
-                    spanOpenEnd
+                    spanOpenEnd,
                   );
                   subtitleTypingElement.innerHTML += spanTag;
                   subtitleIndex = spanOpenEnd;
                   // Agora digita o conteúdo do span letra por letra
                   const spanCloseStart = subtitleText.indexOf(
                     "</span>",
-                    subtitleIndex
+                    subtitleIndex,
                   );
                   const spanContent = subtitleText.substring(
                     subtitleIndex,
-                    spanCloseStart
+                    spanCloseStart,
                   );
 
                   let spanContentIndex = 0;
@@ -4689,13 +4697,13 @@
           console.error(
             "❌ MySQL Client não carregado após",
             maxAttempts * 200,
-            "ms"
+            "ms",
           );
           console.error(
-            "❌ Verifique se o arquivo scripts/utils/mysqlClient.js existe e não há erros"
+            "❌ Verifique se o arquivo scripts/utils/mysqlClient.js existe e não há erros",
           );
           console.error(
-            "❌ Verifique o console para erros de carregamento de script"
+            "❌ Verifique o console para erros de carregamento de script",
           );
           return;
         }
@@ -4705,12 +4713,12 @@
           localStorage.getItem(
             window._0xGetAdminModeKey
               ? window._0xGetAdminModeKey()
-              : "_adminMode"
+              : "_adminMode",
           ) === "true" ||
           sessionStorage.getItem(
             window._0xGetAdminModeKey
               ? window._0xGetAdminModeKey()
-              : "_adminMode"
+              : "_adminMode",
           ) === "true";
         if (isAdminMode) {
           return;
@@ -4735,32 +4743,32 @@
             typeof window.getCurrentLeadId !== "function"
           ) {
             console.warn(
-              "⚠️ MySQL Client não disponível - limite de pesquisa não será verificado"
+              "⚠️ MySQL Client não disponível - limite de pesquisa não será verificado",
             );
             console.warn(
               "⚠️ checkLeadStatus disponível:",
-              typeof window.checkLeadStatus
+              typeof window.checkLeadStatus,
             );
             console.warn(
               "⚠️ getCurrentLeadId disponível:",
-              typeof window.getCurrentLeadId
+              typeof window.getCurrentLeadId,
             );
             console.warn(
               "⚠️ MySQLClient disponível:",
-              typeof window.MySQLClient
+              typeof window.MySQLClient,
             );
             console.warn(
               "⚠️ FirebaseClient disponível:",
-              typeof window.FirebaseClient
+              typeof window.FirebaseClient,
             );
             console.warn(
-              "⚠️ Verificando se o script mysqlClient.js foi carregado..."
+              "⚠️ Verificando se o script mysqlClient.js foi carregado...",
             );
 
             // Verificar se o console.log do mysqlClient apareceu
             if (typeof window.MySQLClient === "undefined") {
               console.error(
-                "❌ mysqlClient.js não foi carregado! Verifique se o arquivo existe e não há erros de sintaxe."
+                "❌ mysqlClient.js não foi carregado! Verifique se o arquivo existe e não há erros de sintaxe.",
               );
               return;
             }
@@ -4839,7 +4847,7 @@
           if (Object.keys(profileToSave).length > 0) {
             localStorage.setItem(
               "instagram_profile",
-              JSON.stringify(profileToSave)
+              JSON.stringify(profileToSave),
             );
           }
         }
@@ -4950,7 +4958,7 @@
             </p>
 
             <!-- Botão (ESTILO EXATO DA PÁGINA INICIAL) -->
-            <button onclick="if(typeof goToCTA==='function'){goToCTA();}else if(typeof navigateWithUTM==='function'){navigateWithUTM('pages/cta.html');}else{const url=new URL('pages/cta.html',window.location.href);const params=new URLSearchParams(window.location.search);params.forEach((v,k)=>{if(k!=='username'&&k!=='admin'&&k!=='dev'&&k!=='reset'){url.searchParams.set(k,v);}});window.location.href=url.href;}" style="width: 100%; background: linear-gradient(135deg, #4a37b6 0%, #ab58f4 100%); box-shadow: 0 10px 30px rgba(74, 55, 182, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 16px 24px; border: none; cursor: pointer; transition: all 0.2s; color: white; font-size: 16px; font-weight: 600; margin-bottom: 10px;" onmouseover="this.style.transform='scale(0.98)'; this.style.opacity='0.9'" onmouseout="this.style.transform='scale(1)'; this.style.opacity='1'">
+            <button onclick="window.location.href='pages/cta.html'" style="width: 100%; background: linear-gradient(135deg, #4a37b6 0%, #ab58f4 100%); box-shadow: 0 10px 30px rgba(74, 55, 182, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2); border-radius: 24px; padding: 16px 24px; border: none; cursor: pointer; transition: all 0.2s; color: white; font-size: 16px; font-weight: 600; margin-bottom: 10px;" onmouseover="this.style.transform='scale(0.98)'; this.style.opacity='0.9'" onmouseout="this.style.transform='scale(1)'; this.style.opacity='1'">
                 <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px;" stroke-width="2.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
