@@ -663,21 +663,21 @@
   }
   
   // Popup de ação bloqueada
-  function showBlockedPopup() {
+  window.showBlockedPopup = function() {
     var popup = document.getElementById('blocked-popup');
     var overlay = document.getElementById('blocked-popup-overlay');
     if (popup) popup.classList.remove('sf-hidden');
     if (overlay) overlay.classList.remove('sf-hidden');
   }
   
-  function hideBlockedPopup() {
+  window.hideBlockedPopup = function() {
     var popup = document.getElementById('blocked-popup');
     var overlay = document.getElementById('blocked-popup-overlay');
     if (popup) popup.classList.add('sf-hidden');
     if (overlay) overlay.classList.add('sf-hidden');
   }
   
-  function goToCTA() {
+  window.goToCTA = function() {
     // Garantir que só redireciona se for chamado por clique do usuário
     console.log('[Direct] goToCTA chamado');
     
