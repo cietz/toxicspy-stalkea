@@ -1286,7 +1286,7 @@
         console.log("🔑 Token:", token ? "Existe" : "Não existe");
 
         if (!token) {
-          window.location.href = "/pages/register/login.html";
+          window.location.href = "../register/login.html";
           return;
         }
 
@@ -1310,7 +1310,7 @@
             console.error("❌ Erro na resposta:", response.status);
             localStorage.removeItem("authToken");
             localStorage.removeItem("user");
-            window.location.href = "/pages/register/login.html";
+            window.location.href = "../register/login.html";
           }
         } catch (error) {
           console.error("❌ Erro ao carregar dados:", error);
@@ -1330,7 +1330,7 @@
       async function loadExistingInvestigation(invId) {
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "/pages/register/login.html";
+          window.location.href = "../register/login.html";
           return;
         }
 
@@ -1411,7 +1411,7 @@
 
       // Go back to dashboard
       function goBack() {
-        window.location.href = "/pages/dashboard/";
+        window.location.href = "../dashboard/";
       }
 
       // Analysis state
@@ -1433,7 +1433,7 @@
 
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "/pages/register/login.html";
+          window.location.href = "../register/login.html";
           return;
         }
 
@@ -1643,7 +1643,7 @@
         currentInvestigationId = null;
 
         // Redirecionar ao dashboard
-        window.location.href = "/pages/dashboard/";
+        window.location.href = "../dashboard/";
       }
 
       // Accelerate
@@ -1789,7 +1789,7 @@
       }
 
       function goToBuyCredits() {
-        window.location.href = "/pages/buycredits/";
+        window.location.href = "../buycredits/";
       }
 
       // Fechar modal ao clicar fora
