@@ -1043,7 +1043,7 @@
           </svg>
         </button>
         <div class="header-title">
-          <img src="../../../pages/v1/register/assets/logo.png" alt="Stalkea" />
+          <img src="../register/assets/logo.png" alt="Stalkea" />
         </div>
         <div class="header-credits">
           <svg
@@ -1269,7 +1269,7 @@
       async function loadUserData() {
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
           return;
         }
 
@@ -1284,7 +1284,7 @@
               data.user?.credits || 0;
           } else {
             localStorage.removeItem("authToken");
-            window.location.href = "../../../pages/v1/login.html";
+            window.location.href = "../login.html";
           }
         } catch (error) {
           console.error("Erro ao carregar dados:", error);
@@ -1292,7 +1292,7 @@
       }
 
       function goBack() {
-        window.location.href = "../../../pages/v1/dashboard/";
+        window.location.href = "../dashboard/";
       }
 
       async function startAnalysis() {
@@ -1306,7 +1306,7 @@
 
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
           return;
         }
 
@@ -1553,7 +1553,7 @@
       async function loadExistingInvestigation(invId) {
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
           return;
         }
 
@@ -1718,7 +1718,7 @@
       }
 
       function goToBuyCredits() {
-        window.location.href = "../../../pages/v1/buycredits/";
+        window.location.href = "../buycredits/";
       }
 
       // Fechar modal ao clicar fora

@@ -400,7 +400,7 @@
     <header>
       <div class="header-content">
         <img
-          src="../../../pages/v1/register/assets/logo.png"
+          src="../register/assets/logo.png"
           alt="ToxicSpy"
           class="logo"
         />
@@ -837,7 +837,7 @@
       // Carregar dados do usuário
       async function loadUserData() {
         if (!authToken) {
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
           return;
         }
 
@@ -870,7 +870,7 @@
           console.error("Erro ao carregar dados:", error);
           localStorage.removeItem("authToken");
           localStorage.removeItem("user");
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
         }
       }
 
@@ -1054,7 +1054,7 @@
       function buyCredits() {
         const menu = document.getElementById("menuDropdown");
         menu.classList.remove("active");
-        window.location.href = "../../../pages/v1/buycredits/";
+        window.location.href = "../buycredits/";
       }
 
       async function openService(serviceName) {
@@ -1135,7 +1135,7 @@
         if (confirm("¿Realmente desea cerrar sesión?")) {
           localStorage.removeItem("authToken");
           localStorage.removeItem("user");
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
         }
       }
 

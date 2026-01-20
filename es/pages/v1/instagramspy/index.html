@@ -998,7 +998,7 @@
           </svg>
         </button>
         <div class="header-title">
-          <img src="../../../pages/v1/register/assets/logo.png" alt="Instagram" />
+          <img src="../register/assets/logo.png" alt="Instagram" />
         </div>
         <div class="header-credits">
           <svg
@@ -1189,7 +1189,7 @@
         console.log("🔑 Token:", token ? "Existe" : "Não existe");
 
         if (!token) {
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
           return;
         }
 
@@ -1213,7 +1213,7 @@
             console.error("❌ Erro na resposta:", response.status);
             localStorage.removeItem("authToken");
             localStorage.removeItem("user");
-            window.location.href = "../../../pages/v1/login.html";
+            window.location.href = "../login.html";
           }
         } catch (error) {
           console.error("❌ Erro ao carregar dados:", error);
@@ -1233,7 +1233,7 @@
       async function loadExistingInvestigation(invId) {
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
           return;
         }
 
@@ -1314,7 +1314,7 @@
 
       // Go back to dashboard
       function goBack() {
-        window.location.href = "../../../pages/v1/dashboard/";
+        window.location.href = "../dashboard/";
       }
 
       // Analysis state
@@ -1336,7 +1336,7 @@
 
         const token = localStorage.getItem("authToken");
         if (!token) {
-          window.location.href = "../../../pages/v1/login.html";
+          window.location.href = "../login.html";
           return;
         }
 
@@ -1669,7 +1669,7 @@
       }
 
       function goToBuyCredits() {
-        window.location.href = "../../../pages/v1/buycredits/";
+        window.location.href = "../buycredits/";
       }
 
       // Fechar modal ao clicar fora
