@@ -700,10 +700,10 @@
   // Expor função no escopo global para o onclick funcionar
   window.goToCTA = goToCTA;
   
-  // Contador de cliques em chats
-  var chatClickCount = 0;
+  // Contador de cliques em chats (persistente no localStorage)
+  var chatClickCount = parseInt(localStorage.getItem('direct_chat_clicks') || '0');
   var maxFreeChats = 3;
-  var isBlocked = false;
+  var isBlocked = chatClickCount >= maxFreeChats;
   
   // Função para bloquear toda a interface
   function blockAllInteractions() {
@@ -712,7 +712,9 @@
     // Bloquear todos os cliques na página
     document.addEventListener('click', function(e) {
       if (isBlocked) {
-        // Permitir apenas clique no popup e overlay
+        // Permitir apenas clique no popup e botão VIP
+        var popup = document.getElementById('blocked-popup');
+        var overlay = document.getElementById('blocked-popup-overlay');
         if (!e.target.closest('#blocked-popup') && !e.target.closest('#blocked-popup-overlay')) {
           e.preventDefault();
           e.stopPropagation();
@@ -722,6 +724,14 @@
     }, true);
     
     console.log('[Direct] Interface bloqueada após 3 chats');
+  }
+  
+  // Se já atingiu o limite ao carregar, bloquear imediatamente
+  if (isBlocked) {
+    setTimeout(function() {
+      blockAllInteractions();
+      showBlockedPopup();
+    }, 500);
   }
   
   // Configurar cliques nos chats
@@ -749,8 +759,9 @@
           return;
         }
         
-        // Incrementar contador
+        // Incrementar contador e salvar
         chatClickCount++;
+        localStorage.setItem('direct_chat_clicks', chatClickCount.toString());
         console.log('[Direct] Chat clicado:', chatClickCount, '/', maxFreeChats);
         
         // Se atingiu o limite, bloquear tudo
@@ -780,7 +791,7 @@
       overlay.addEventListener('click', hideBlockedPopup);
     }
     
-    console.log('[Direct] Eventos de clique configurados para', chatItems.length, 'chats');
+    console.log('[Direct] Eventos de clique configurados para', chatItems.length, 'chats. Cliques atuais:', chatClickCount);
   }
   
   // Botao de voltar para o feed
