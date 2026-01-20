@@ -1,0 +1,1186 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Stalkea.ai - Panel de Control</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --color-primary: #ab58f4;
+        --color-secondary: #c874ff;
+        --color-accent: #4a37b6;
+        --bg-dark: #040607;
+        --bg-card: rgba(12, 16, 17, 0.95);
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background-color: var(--bg-dark);
+        color: white;
+        min-height: 100vh;
+      }
+
+      .gradient-primary {
+        background: linear-gradient(135deg, #4a37b6 0%, #ab58f4 100%);
+      }
+
+      /* Header */
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 40;
+        background: rgba(11, 16, 20, 0.9);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        height: 60px;
+      }
+
+      .header-content {
+        max-width: 1280px;
+        margin: 0 auto;
+        height: 60px;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: linear-gradient(
+          transparent 0%,
+          rgba(171, 88, 244, 0.08) 100%
+        );
+      }
+
+      .logo {
+        height: 27px;
+      }
+
+      .menu-btn {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        width: 24px;
+        height: 14px;
+      }
+
+      .menu-btn span {
+        width: 20px;
+        height: 2px;
+        background: #f9f9f9;
+        border-radius: 999px;
+      }
+
+      /* Dropdown Menu */
+      .menu-dropdown {
+        position: absolute;
+        top: 50px;
+        right: 16px;
+        background: var(--bg-card);
+        border: 1px solid rgba(128, 128, 128, 0.15);
+        border-radius: 12px;
+        padding: 8px;
+        min-width: 200px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        z-index: 50;
+        display: none;
+      }
+
+      .menu-dropdown.active {
+        display: block;
+        animation: slideDown 0.2s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .menu-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        color: #f9f9f9;
+        font-size: 14px;
+        font-weight: 500;
+        background: transparent;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-align: left;
+      }
+
+      .menu-item:hover {
+        background: rgba(171, 88, 244, 0.1);
+      }
+
+      .menu-item svg {
+        width: 18px;
+        height: 18px;
+        color: var(--color-primary);
+      }
+
+      .menu-item.danger {
+        color: #dc2626;
+      }
+
+      .menu-item.danger svg {
+        color: #dc2626;
+      }
+
+      .menu-item.danger:hover {
+        background: rgba(220, 38, 38, 0.1);
+      }
+
+      /* Main Content */
+      main {
+        padding-top: 60px;
+        min-height: 100vh;
+        position: relative;
+        z-index: 10;
+      }
+
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 16px 12px;
+      }
+
+      /* Welcome Card */
+      .welcome-card {
+        background: linear-gradient(135deg, #4a37b6 0%, #ab58f4 100%);
+        border-radius: 16px;
+        padding: 12px;
+        margin-bottom: 12px;
+        position: relative;
+        overflow: hidden;
+        opacity: 0.95;
+      }
+
+      .welcome-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 128px;
+        height: 128px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(50%, -50%);
+      }
+
+      .welcome-content {
+        position: relative;
+        z-index: 10;
+      }
+
+      .welcome-header {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 8px;
+      }
+
+      .welcome-title h1 {
+        font-size: 25px;
+        font-weight: bold;
+        margin-bottom: 6px;
+      }
+
+      .welcome-subtitle {
+        font-size: 13px;
+        opacity: 0.8;
+      }
+
+      .level-badge {
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        border-radius: 12px;
+        padding: 8px 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        border-radius: 8px;
+        padding: 8px;
+      }
+
+      .stat-card h3 {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        margin-top: 4px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: white;
+        border-radius: 999px;
+        transition: width 0.5s;
+      }
+
+      /* Section Title */
+      .section-title {
+        font-size: 16.5px;
+        font-weight: bold;
+        margin: 16px 0 12px 2%;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .section-title svg {
+        width: 18px;
+        height: 18px;
+        color: var(--color-primary);
+      }
+
+      /* Animations */
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animate-spin {
+        animation: spin 1s linear infinite;
+      }
+
+      /* Service Cards */
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      @media (min-width: 640px) {
+        .services-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .services-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      .service-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(128, 128, 128, 0.15);
+        border-radius: 12px;
+        padding: 12px;
+        cursor: pointer;
+        transition: all 0.15s;
+        position: relative;
+      }
+
+      .service-card:active {
+        transform: scale(0.95);
+      }
+
+      .service-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 8px;
+      }
+
+      .service-icon svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      .service-title {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+
+      .service-desc {
+        font-size: 12px;
+        color: #9ca3af;
+        line-height: 1.4;
+        min-height: 32px;
+      }
+
+      .service-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 4px 8px;
+        border-radius: 8px;
+        font-size: 11.4px;
+        font-weight: bold;
+        margin-top: 8px;
+      }
+
+      /* Matrix Canvas */
+      #matrix-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      /* Footer */
+      footer {
+        background: rgba(11, 16, 20, 0.8);
+        backdrop-filter: blur(8px);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 24px;
+      }
+
+      .footer-content {
+        max-width: 1280px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .footer-text {
+        font-size: 12px;
+        color: #9ca3af;
+        margin-bottom: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="matrix-canvas"></canvas>
+
+    <header>
+      <div class="header-content">
+        <img
+          src="../../../pages/v1/register/assets/logo.png"
+          alt="Stalkea.ai"
+          class="logo"
+        />
+        <button class="menu-btn" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <!-- Dropdown Menu -->
+      <div class="menu-dropdown" id="menuDropdown">
+        <button class="menu-item" onclick="buyCredits()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"
+            ></path>
+          </svg>
+          Comprar créditos
+        </button>
+        <button class="menu-item danger" onclick="logout()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" x2="9" y1="12" y2="12"></line>
+          </svg>
+          Cerrar Sesión
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Welcome Card -->
+        <div class="welcome-card">
+          <div class="welcome-content">
+            <div class="welcome-header">
+              <div class="welcome-title">
+                <p style="font-size: 15px; opacity: 0.9; margin-bottom: 4px">
+                  ¡Bienvenido!
+                </p>
+                <h1>¡Hola, <span id="userName">Visitante</span>! 👋</h1>
+                <p class="welcome-subtitle">
+                  Elige un servicio y comienza tu investigación
+                </p>
+              </div>
+              <div class="level-badge">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  style="width: 16px; height: 16px"
+                >
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                  <polyline points="16 7 22 7 22 13"></polyline>
+                </svg>
+                <div>
+                  <p style="font-size: 18px; font-weight: bold; line-height: 1">
+                    Nv.1
+                  </p>
+                  <p style="font-size: 8px; opacity: 0.8">Nivel</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="stats-grid">
+              <div class="stat-card">
+                <p style="font-size: 10px; opacity: 0.8; margin-bottom: 4px">
+                  Créditos
+                </p>
+                <h3 id="credits">50</h3>
+              </div>
+              <div class="stat-card">
+                <p style="font-size: 10px; opacity: 0.8; margin-bottom: 4px">
+                  XP
+                </p>
+                <p
+                  style="font-size: 14px; font-weight: bold; margin-bottom: 4px"
+                >
+                  <span id="xp">0</span>/200
+                </p>
+                <div class="progress-bar">
+                  <div class="progress-fill" id="xpBar" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Available Services -->
+        <div>
+          <!-- Investigações Ativas -->
+          <div id="activeInvestigations" style="margin-bottom: 24px"></div>
+
+          <h2 class="section-title">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"
+              ></path>
+            </svg>
+            Serviços Disponíveis
+          </h2>
+
+          <div class="services-grid">
+            <!-- Instagram -->
+            <div class="service-card" onclick="openService('Instagram')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(228, 64, 95, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#e4405f"
+                  stroke-width="2"
+                >
+                  <rect width="20" height="20" x="2" y="2" rx="5"></rect>
+                  <path
+                    d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                  ></path>
+                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                </svg>
+              </div>
+              <div class="service-title">Instagram</div>
+              <p class="service-desc">
+                Ve fotos con me gusta, publicaciones reenviadas y conversaciones
+                del direct
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(228, 64, 95, 0.1);
+                  border: 1px solid rgba(228, 64, 95, 0.3);
+                  color: #e4405f;
+                "
+              >
+                35 créditos
+              </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="service-card" onclick="openService('WhatsApp')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(37, 211, 102, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 256 256"
+                  style="width: 24px; height: 24px"
+                >
+                  <path
+                    d="M128 32c-53.02 0-96 41.08-96 91.73 0 16.45 5.08 32.35 14.7 46.17L32 224l55.47-13.83c12.7 6.52 26.97 10 40.53 10 53.02 0 96-41.08 96-91.72C224 73.08 181.02 32 128 32z"
+                    fill="none"
+                    stroke="#25D366"
+                    stroke-width="14"
+                  ></path>
+                  <path
+                    d="M176.68 150.24c-2.37-1.19-14.02-6.88-16.19-7.66-2.17-.78-3.76-1.19-5.35 1.19-1.6 2.38-6.13 7.66-7.5 9.25-1.38 1.58-2.76 1.78-5.12.59-2.37-1.19-10-3.64-19.04-11.6-7.06-6.23-11.83-13.92-13.2-16.3-1.37-2.38-.15-3.66 1.03-4.85 1.06-1.05 2.37-2.76 3.55-4.14 1.18-1.39 1.58-2.38 2.37-3.97.79-1.58.4-2.98-.2-4.17-.59-1.19-5.35-12.88-7.33-17.64-1.93-4.63-3.9-4-5.35-4.08-1.38-.08-2.97-.1-4.56-.1-1.59 0-4.17.6-6.36 2.99-2.17 2.38-8.32 8.12-8.32 19.78s8.52 22.96 9.7 24.55c1.18 1.58 16.76 26.26 40.67 36.11 5.68 2.45 10.11 3.91 13.56 5 5.7 1.81 10.9 1.55 14.99.94 4.57-.68 14.02-5.73 15.98-11.27 1.97-5.53 1.97-10.26 1.38-11.27-.59-1.01-2.15-1.58-4.52-2.79z"
+                    fill="#25D366"
+                  ></path>
+                </svg>
+              </div>
+              <div class="service-title">WhatsApp</div>
+              <p class="service-desc">
+                Accede a conversaciones completas, audios, videos y grupos
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(37, 211, 102, 0.1);
+                  border: 1px solid rgba(37, 211, 102, 0.3);
+                  color: #25d366;
+                "
+              >
+                40 créditos
+              </div>
+            </div>
+
+            <!-- Facebook -->
+            <div class="service-card" onclick="openService('Facebook')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(24, 119, 242, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#1877F2"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="service-title">Facebook</div>
+              <p class="service-desc">
+                Ve todas las interacciones y ten acceso completo a Messenger
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(24, 119, 242, 0.1);
+                  border: 1px solid rgba(24, 119, 242, 0.3);
+                  color: #1877f2;
+                "
+              >
+                45 créditos
+              </div>
+            </div>
+
+            <!-- Localização -->
+            <div class="service-card" onclick="openService('Localização')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(255, 107, 74, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#FF6B4A"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                  ></path>
+                  <circle cx="12" cy="10" r="3"></circle>
+                </svg>
+              </div>
+              <div class="service-title">Localización</div>
+              <p class="service-desc">
+                Rastrea en tiempo real y ve lugares sospechosos visitados
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(255, 107, 74, 0.1);
+                  border: 1px solid rgba(255, 107, 74, 0.3);
+                  color: #ff6b4a;
+                "
+              >
+                60 créditos
+              </div>
+            </div>
+
+            <!-- SMS -->
+            <div class="service-card" onclick="openService('SMS')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(255, 193, 7, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#FFC107"
+                  stroke-width="2"
+                >
+                  <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
+                </svg>
+              </div>
+              <div class="service-title">SMS</div>
+              <p class="service-desc">
+                Todos los mensajes de texto enviados y recibidos
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(255, 193, 7, 0.1);
+                  border: 1px solid rgba(255, 193, 7, 0.3);
+                  color: #ffc107;
+                "
+              >
+                30 créditos
+              </div>
+            </div>
+
+            <!-- Chamadas -->
+            <div class="service-card" onclick="openService('Chamadas')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(76, 175, 80, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#4CAF50"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="service-title">Llamadas</div>
+              <p class="service-desc">
+                Registro completo de llamadas con duración y horarios
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(76, 175, 80, 0.1);
+                  border: 1px solid rgba(76, 175, 80, 0.3);
+                  color: #4caf50;
+                "
+              >
+                25 créditos
+              </div>
+            </div>
+
+            <!-- Câmera -->
+            <div class="service-card" onclick="openService('Câmera')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(156, 39, 176, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#9C27B0"
+                  stroke-width="2"
+                >
+                  <path
+                    d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"
+                  ></path>
+                  <circle cx="12" cy="13" r="3"></circle>
+                </svg>
+              </div>
+              <div class="service-title">Cámara</div>
+              <p class="service-desc">
+                Accede a fotos y videos de la galería, incluyendo archivos
+                eliminados
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(156, 39, 176, 0.1);
+                  border: 1px solid rgba(156, 39, 176, 0.3);
+                  color: #9c27b0;
+                "
+              >
+                55 créditos
+              </div>
+            </div>
+
+            <!-- Outras Redes -->
+            <div class="service-card" onclick="openService('Outras Redes')">
+              <div
+                class="service-icon"
+                style="background-color: rgba(244, 67, 54, 0.12)"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#F44336"
+                  stroke-width="2"
+                >
+                  <circle cx="18" cy="5" r="3"></circle>
+                  <circle cx="6" cy="12" r="3"></circle>
+                  <circle cx="18" cy="19" r="3"></circle>
+                  <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+                  <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+                </svg>
+              </div>
+              <div class="service-title">Otras Redes</div>
+              <p class="service-desc">
+                Búsqueda completa en todas las redes sociales (incluyendo sitios
+                para adultos)
+              </p>
+              <div
+                class="service-badge"
+                style="
+                  background: rgba(244, 67, 54, 0.1);
+                  border: 1px solid rgba(244, 67, 54, 0.3);
+                  color: #f44336;
+                "
+              >
+                70 créditos
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <p class="footer-text">
+          © 2025 Stalkea.ai. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // Verificar se usuário está logado
+      const authToken = localStorage.getItem("authToken");
+      const user = JSON.parse(localStorage.getItem("user") || "{}");
+
+      // Carregar dados do usuário
+      async function loadUserData() {
+        if (!authToken) {
+          window.location.href = "../../../pages/v1/login.html";
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/auth/me", {
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Sessão expirada");
+          }
+
+          const data = await response.json();
+
+          // Atualizar interface com dados do usuário
+          if (data.user) {
+            const firstName = data.user.fullName.split(" ")[0];
+            document.getElementById("userName").textContent = firstName;
+            document.getElementById("credits").textContent =
+              data.user.credits || 50;
+            document.getElementById("xp").textContent = data.user.xp || 0;
+
+            // Atualizar barra de progresso XP
+            const xpPercent = ((data.user.xp || 0) / 200) * 100;
+            document.getElementById("xpBar").style.width = xpPercent + "%";
+          }
+        } catch (error) {
+          console.error("Erro ao carregar dados:", error);
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("user");
+          window.location.href = "../../../pages/v1/login.html";
+        }
+      }
+
+      // Carregar dados ao iniciar
+      loadUserData();
+      loadActiveInvestigations();
+
+      // Buscar investigações ativas
+      async function loadActiveInvestigations() {
+        const token = localStorage.getItem("authToken");
+        if (!token) return;
+
+        try {
+          const response = await fetch("/api/investigations/active", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            displayActiveInvestigations(data.investigations);
+          }
+        } catch (error) {
+          console.error("Erro ao carregar investigações:", error);
+        }
+      }
+
+      // Função auxiliar para converter hex para rgb
+      function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result
+          ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(
+              result[3],
+              16,
+            )}`
+          : "171, 88, 244";
+      }
+
+      // Exibir investigações ativas
+      function displayActiveInvestigations(investigations) {
+        const container = document.getElementById("activeInvestigations");
+
+        if (!investigations || investigations.length === 0) {
+          container.innerHTML = "";
+          return;
+        }
+
+        // Configuração de cores e rotas para cada serviço
+        const serviceConfig = {
+          Instagram: {
+            color: "#e4405f",
+            route: "/pages/v1/instagramspy/",
+          },
+          WhatsApp: { color: "#25D366", route: "/pages/v1/whatsappspy/" },
+          Facebook: { color: "#1877F2", route: "/pages/v1/facebookspy/" },
+          Location: { color: "#FF6B4A", route: "/pages/v1/locationspy/" },
+          Localização: {
+            color: "#FF6B4A",
+            route: "/pages/v1/locationspy/",
+          },
+          SMS: { color: "#FFC107", route: "/pages/v1/smsspy/" },
+          Chamadas: { color: "#4CAF50", route: "/pages/v1/callsspy/" },
+          Calls: { color: "#4CAF50", route: "/pages/v1/callsspy/" },
+          Câmera: { color: "#9C27B0", route: "/pages/v1/cameraspy/" },
+          Camera: { color: "#9C27B0", route: "/pages/v1/cameraspy/" },
+          "Outras Redes": {
+            color: "#F44336",
+            route: "/pages/v1/othernetworksspy/",
+          },
+          OtherNetworks: {
+            color: "#F44336",
+            route: "/pages/v1/othernetworksspy/",
+          },
+          "Other Networks": {
+            color: "#F44336",
+            route: "/pages/v1/othernetworksspy/",
+          },
+          Detetive: {
+            color: "#FF9800",
+            route: "/pages/v1/detectivespy/",
+          },
+          Detective: {
+            color: "#FF9800",
+            route: "/pages/v1/detectivespy/",
+          },
+        };
+
+        // Título da seção
+        let html = `
+          <h2 class="section-title" style="font-size: 16.5px; font-weight: bold; margin: 0 0 12px 2%; display: flex; align-items: center; gap: 6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ab58f4" stroke-width="2" style="width: 18px; height: 18px; animation: spin 1s linear infinite;">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+            </svg>
+            Investigaciones en Curso
+          </h2>
+        `;
+
+        html += investigations
+          .map((inv) => {
+            const config = serviceConfig[inv.serviceType] || {
+              color: "#ab58f4",
+              route: "#",
+            };
+            const displayName =
+              inv.serviceType === "WhatsApp"
+                ? "+55 " + inv.targetUsername
+                : inv.targetUsername.startsWith("@")
+                  ? inv.targetUsername
+                  : "@" + inv.targetUsername;
+
+            return `
+            <div class="investigation-card" style="background: rgba(12, 16, 17, 0.95); border: 1px solid rgba(128, 128, 128, 0.15); border-left: 4px solid ${
+              config.color
+            }; border-radius: 12px; margin-bottom: 12px; cursor: pointer; transition: all 0.2s;" onclick="window.location.href='${
+              config.route
+            }?investigation=${
+              inv.id
+            }'" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='';this.style.boxShadow=''">
+              <div style="padding: 16px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                  <div style="width: 40px; height: 40px; background: rgba(${hexToRgb(
+                    config.color,
+                  )}, 0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="${
+                      config.color
+                    }" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;">
+                      <path d="M21 12a9 9 0 1 1-6.219-8.56"></path>
+                    </svg>
+                  </div>
+                  <div style="flex: 1; min-width: 0;">
+                    <h3 style="font-weight: 700; font-size: 15px; color: white; margin-bottom: 3px;">${
+                      inv.serviceType
+                    }</h3>
+                    <p style="font-size: 13px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${displayName}</p>
+                  </div>
+                  <div style="background: rgba(${hexToRgb(
+                    config.color,
+                  )}, 0.15); color: ${
+                    config.color
+                  }; font-size: 13px; font-weight: 700; padding: 6px 12px; border-radius: 8px;">
+                    ${Math.floor(inv.progress)}%
+                  </div>
+                </div>
+                <div style="width: 100%; background: rgba(255,255,255,0.08); border-radius: 999px; height: 6px; overflow: hidden;">
+                  <div style="height: 100%; background: ${
+                    config.color
+                  }; border-radius: 999px; transition: width 0.5s; width: ${Math.floor(
+                    inv.progress,
+                  )}%;"></div>
+                </div>
+                <p style="font-size: 11px; color: #6b7280; margin-top: 8px; text-align: right;">Haga clic para continuar →</p>
+              </div>
+            </div>
+          `;
+          })
+          .join("");
+
+        container.innerHTML = html;
+      }
+
+      // Atualizar investigações a cada 5 segundos
+      setInterval(loadActiveInvestigations, 5000);
+
+      // Toggle menu dropdown
+      function toggleMenu() {
+        const menu = document.getElementById("menuDropdown");
+        menu.classList.toggle("active");
+      }
+
+      // Fechar menu ao clicar fora
+      document.addEventListener("click", (e) => {
+        const menu = document.getElementById("menuDropdown");
+        const menuBtn = document.querySelector(".menu-btn");
+        if (menu && !menu.contains(e.target) && !menuBtn.contains(e.target)) {
+          menu.classList.remove("active");
+        }
+      });
+
+      // Buy credits
+      function buyCredits() {
+        const menu = document.getElementById("menuDropdown");
+        menu.classList.remove("active");
+        window.location.href = "../../../pages/v1/buycredits/";
+      }
+
+      async function openService(serviceName) {
+        const serviceRoutes = {
+          Instagram: "/pages/v1/instagramspy/",
+          WhatsApp: "/pages/v1/whatsappspy/",
+          Facebook: "/pages/v1/facebookspy/",
+          Location: "/pages/v1/locationspy/",
+          Localização: "/pages/v1/locationspy/",
+          SMS: "/pages/v1/smsspy/",
+          Chamadas: "/pages/v1/callsspy/",
+          Calls: "/pages/v1/callsspy/",
+          Câmera: "/pages/v1/cameraspy/",
+          Camera: "/pages/v1/cameraspy/",
+          "Outras Redes": "/pages/v1/othernetworksspy/",
+          OtherNetworks: "/pages/v1/othernetworksspy/",
+          "Other Networks": "/pages/v1/othernetworksspy/",
+          Detetive: "/pages/v1/detectivespy/",
+          Detective: "/pages/v1/detectivespy/",
+        };
+
+        const route = serviceRoutes[serviceName];
+        if (!route) {
+          alert(
+            `Abriendo servicio: ${serviceName}\n\nEsta funcionalidad está en desarrollo.`,
+          );
+          return;
+        }
+
+        // Verificar se há investigação ativa para este serviço
+        const token = localStorage.getItem("authToken");
+        if (token) {
+          try {
+            const response = await fetch("/api/investigations/active", {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              const activeInv = data.investigations.find((inv) => {
+                const invService = inv.serviceType
+                  .toLowerCase()
+                  .replace(/[áãâ]/g, "a")
+                  .replace(/[éê]/g, "e")
+                  .replace(/[í]/g, "i")
+                  .replace(/[óõô]/g, "o")
+                  .replace(/[ú]/g, "u");
+                const targetService = serviceName
+                  .toLowerCase()
+                  .replace(/[áãâ]/g, "a")
+                  .replace(/[éê]/g, "e")
+                  .replace(/[í]/g, "i")
+                  .replace(/[óõô]/g, "o")
+                  .replace(/[ú]/g, "u");
+                return (
+                  invService.includes(targetService) ||
+                  targetService.includes(invService)
+                );
+              });
+
+              if (activeInv && activeInv.status === "in_progress") {
+                // Redirecionar com o ID da investigação
+                window.location.href = route + "?investigation=" + activeInv.id;
+                return;
+              }
+            }
+          } catch (error) {
+            console.error("Error al verificar investigaciones:", error);
+          }
+        }
+
+        // Se não há investigação ativa, apenas abrir a página
+        window.location.href = route;
+      }
+
+      // Logout
+      function logout() {
+        if (confirm("¿Realmente desea cerrar sesión?")) {
+          localStorage.removeItem("authToken");
+          localStorage.removeItem("user");
+          window.location.href = "../../../pages/v1/login.html";
+        }
+      }
+
+      // Matrix effect
+      const canvas = document.getElementById("matrix-canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars =
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789";
+      const charArray = chars.split("");
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = (Math.random() * canvas.height) / fontSize;
+      }
+
+      function drawMatrix() {
+        ctx.fillStyle = "rgba(4, 6, 7, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#ab58f4";
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+          const char = charArray[Math.floor(Math.random() * charArray.length)];
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(drawMatrix, 50);
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    </script>
+  </body>
+</html>

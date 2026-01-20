@@ -1,0 +1,818 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stalkea.ai - Firewall y Secreto</title>
+    <meta
+      name="description"
+      content="La mayor herramienta de stalker de Latinoamérica"
+    />
+    <style>
+      :root {
+        --color-primary: #ab58f4;
+        --color-secondary: #c874ff;
+        --color-accent: #4a37b6;
+        --color-dark: #040607;
+        --color-dark-card: rgba(7, 9, 10, 0.9);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background-color: var(--color-dark);
+        color: #e5e7eb;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      #matrix-canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        opacity: 0.6;
+      }
+
+      .warning-banner-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+        padding: 12px;
+        z-index: 1000;
+        box-shadow: 0 4px 20px rgba(220, 38, 38, 0.3);
+      }
+
+      .warning-banner-inner {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .warning-icon {
+        width: 20px;
+        height: 20px;
+        color: white;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      .warning-text-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .warning-line-1 {
+        font-weight: 700;
+        font-size: 14px;
+        color: white;
+      }
+
+      .warning-line-2 {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .main-container {
+        min-height: 100vh;
+        padding: 80px 16px 32px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .container-dpgm {
+        max-width: 450px;
+        margin: 0 auto;
+        animation: fadeIn 0.6s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .logo-section-upsell {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .logo-upsell {
+        width: clamp(98px, 27.6vw, 139px);
+        height: auto;
+      }
+
+      .progress-bar {
+        width: 90%;
+        max-width: 400px;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        overflow: hidden;
+        margin: 0 auto clamp(20px, 5vw, 28px);
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(135deg, #4a37b6 0%, #ab58f4 100%);
+        border-radius: 999px;
+        width: 33%;
+      }
+
+      .card-dpgm {
+        background: var(--color-dark-card);
+        backdrop-filter: blur(40px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow:
+          rgba(0, 0, 0, 0.4) 0px 20px 60px,
+          rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 24px;
+      }
+
+      .card-highlight {
+        border: 1px solid var(--color-primary);
+        box-shadow: rgba(171, 88, 244, 0.3) 0px 0px 40px;
+      }
+
+      .text-gradient {
+        background-image: linear-gradient(
+          135deg,
+          rgb(74, 55, 182) 0%,
+          rgb(171, 88, 244) 100%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .titulo-grande {
+        font-size: clamp(26px, 8vw, 42px);
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .titulo-medio {
+        text-align: center;
+        font-size: clamp(16px, 4vw, 20px);
+        color: #9ca3af;
+        margin-bottom: 24px;
+        line-height: 1.5;
+      }
+
+      .subtitle-dpgm {
+        font-size: clamp(14px, 3.5vw, 16px);
+        color: #9ca3af;
+        line-height: 1.6;
+      }
+
+      .text-white {
+        color: white !important;
+      }
+
+      .alert-dpgm {
+        padding: 16px;
+        border-radius: 8px;
+        margin-top: 16px;
+      }
+
+      .alert-warning {
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.3);
+      }
+
+      .badge-dpgm {
+        position: absolute;
+        top: -12px;
+        right: 16px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .badge-primary {
+        background: linear-gradient(135deg, #4a37b6 0%, #ab58f4 100%);
+        color: white;
+      }
+
+      .benefits-list {
+        list-style: none;
+        margin: 20px 0;
+      }
+
+      .benefit-item {
+        display: flex;
+        align-items: start;
+        gap: 12px;
+        padding: 12px 0;
+        color: #d1d5db;
+      }
+
+      .check-icon {
+        width: 20px;
+        height: 20px;
+        color: var(--color-primary);
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .pricing-container-dpgm {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .pricing-old {
+        text-decoration: line-through;
+        color: #6b7280;
+        font-size: 18px;
+      }
+
+      .pricing-current {
+        font-size: clamp(36px, 10vw, 48px);
+        font-weight: 700;
+        color: var(--color-primary);
+        margin: 8px 0;
+      }
+
+      .pricing-note {
+        font-size: 14px;
+        color: #9ca3af;
+      }
+
+      .btn-dpgm {
+        width: 100%;
+        padding: 16px 24px;
+        background: linear-gradient(135deg, #4a37b6 0%, #ab58f4 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 20px;
+        transition: all 0.3s;
+      }
+
+      .btn-dpgm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(171, 88, 244, 0.4);
+      }
+
+      .btn-dpgm-pulse {
+        animation: btnPulse 2s infinite;
+      }
+
+      @keyframes btnPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 0 0 rgba(171, 88, 244, 0.7);
+        }
+        50% {
+          box-shadow: 0 0 0 10px rgba(171, 88, 244, 0);
+        }
+      }
+
+      .faq-new {
+        margin-top: 32px;
+      }
+
+      .faq-new-title {
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .faq-new-item {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        margin-bottom: 12px;
+        overflow: hidden;
+      }
+
+      .faq-new-btn {
+        width: 100%;
+        padding: 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: none;
+        color: white;
+        text-align: left;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 16px;
+      }
+
+      .faq-new-btn:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .faq-new-icon {
+        font-size: 24px;
+        transition: transform 0.3s;
+      }
+
+      .faq-new-item.active .faq-new-icon {
+        transform: rotate(45deg);
+      }
+
+      .faq-new-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+      }
+
+      .faq-new-item.active .faq-new-answer {
+        max-height: 500px;
+      }
+
+      .faq-new-answer p {
+        padding: 16px;
+        color: #9ca3af;
+        line-height: 1.6;
+      }
+
+      .footer-dpgm {
+        text-align: center;
+        padding: 32px 16px;
+        color: #6b7280;
+        font-size: 14px;
+      }
+
+      .confetti {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      @keyframes cf1 {
+        0% {
+          opacity: 0.7;
+          transform: translate(0, 0);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(25px, -40px);
+        }
+      }
+
+      @keyframes cf2 {
+        0% {
+          opacity: 0.7;
+          transform: translate(0, 0);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-28px, -38px);
+        }
+      }
+
+      @keyframes cf3 {
+        0% {
+          opacity: 0.7;
+          transform: translate(0, 0);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(18px, -48px);
+        }
+      }
+
+      @keyframes cf4 {
+        0% {
+          opacity: 0.7;
+          transform: translate(0, 0);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-20px, -45px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="matrix-canvas"></canvas>
+
+    <div class="warning-banner-fixed">
+      <div class="warning-banner-inner">
+        <svg class="warning-icon" viewBox="0 0 24 24" fill="currentColor">
+          <circle cx="12" cy="12" r="6" fill="currentColor"></circle>
+        </svg>
+        <div class="warning-text-container">
+          <span class="warning-line-1"
+            >¡Atención, no salgas de esta página!</span
+          >
+          <span class="warning-line-2"
+            >Tu compra aún no se ha completado al 100%</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <main class="main-container">
+      <div class="container-dpgm">
+        <div class="logo-section-upsell">
+          <img
+            src="images/logo-vert-transparente.png"
+            alt="Stalkea.ai Logo"
+            class="logo-upsell"
+          />
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+
+        <div class="card-dpgm">
+          <div style="text-align: center; margin-bottom: 24px">
+            <h1 class="titulo-grande">
+              <span class="text-gradient" id="mainTitle"
+                >¡Felicitaciones! 🎉</span
+              >
+            </h1>
+            <p class="titulo-medio" id="subtitleText"></p>
+          </div>
+
+          <div id="content-section" style="display: none">
+            <p
+              class="subtitle-dpgm"
+              style="text-align: center; margin-bottom: 16px"
+            >
+              Para garantizar
+              <strong class="text-white"
+                >el total secreto de tu identidad</strong
+              >, es necesario realizar un pago único de una pequeña tarifa de
+              <strong class="text-gradient">Firewall y Secreto</strong>.
+            </p>
+
+            <div class="alert-dpgm alert-warning">
+              <span>
+                <strong>⚠️ Activación obligatoria:</strong>
+                sin esta tarifa, Instagram puede notificar a tu cónyuge que está
+                siendo monitoreado y exponer tu identidad por medidas de
+                seguridad.
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div id="offer-section" style="display: none">
+          <div class="card-dpgm card-highlight" style="position: relative">
+            <div class="badge-dpgm badge-primary">Limitado</div>
+
+            <h2
+              style="
+                font-size: 20px;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 24px;
+              "
+            >
+              <span class="text-gradient">Oferta Especial</span> 🔥
+            </h2>
+
+            <ul class="benefits-list">
+              <li class="benefit-item">
+                <svg
+                  class="check-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Protección total de tus datos e identidad</span>
+              </li>
+              <li class="benefit-item">
+                <svg
+                  class="check-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>100% de secreto en la investigación</span>
+              </li>
+              <li class="benefit-item">
+                <svg
+                  class="check-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Liberación de copias de seguridad automáticas</span>
+              </li>
+              <li class="benefit-item">
+                <svg
+                  class="check-icon"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M5 13l4 4L19 7"
+                  ></path>
+                </svg>
+                <span>Firewall activo por 1 año después del pago</span>
+              </li>
+            </ul>
+
+            <div class="pricing-container-dpgm">
+              <div
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  gap: 12px;
+                  margin-bottom: 8px;
+                "
+              >
+                <span class="pricing-old">$16.990 ARS</span>
+                <span class="badge-dpgm badge-primary" style="position: static"
+                  >$7.000 OFF</span
+                >
+              </div>
+              <div class="pricing-current">
+                $9.990<span style="font-size: 24px"> ARS</span>
+              </div>
+              <div class="pricing-note">Pago único</div>
+            </div>
+
+            <button
+              class="btn-dpgm btn-dpgm-pulse"
+              onclick="window.location.href = 'https://www.google.com'"
+            >
+              🔐 Proteger mis datos y secreto
+              <div style="font-size: 12px; opacity: 0.9">
+                Y acceder al instagram ahora mismo
+              </div>
+            </button>
+          </div>
+
+          <div class="faq-new">
+            <h2 class="faq-new-title">Preguntas Frecuentes</h2>
+
+            <div class="faq-new-item">
+              <button class="faq-new-btn" onclick="toggleFaq(this)">
+                <span>¿Tengo que hacer otro pago?</span>
+                <span class="faq-new-icon">+</span>
+              </button>
+              <div class="faq-new-answer">
+                <p>
+                  Esta tarifa es independiente de la compra inicial. Sirve
+                  exclusivamente para activar los servidores encriptados,
+                  garantizar el modo invisible y liberar las copias de seguridad
+                  automáticas con total secreto.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-new-item">
+              <button class="faq-new-btn" onclick="toggleFaq(this)">
+                <span>¿Aparece el nombre de la app en el cargo?</span>
+                <span class="faq-new-icon">+</span>
+              </button>
+              <div class="faq-new-answer">
+                <p>
+                  No. El cargo aparece con un nombre discreto y genérico para
+                  proteger tu privacidad.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-new-item">
+              <button class="faq-new-btn" onclick="toggleFaq(this)">
+                <span>¿Esta tarifa es realmente obligatoria?</span>
+                <span class="faq-new-icon">+</span>
+              </button>
+              <div class="faq-new-answer">
+                <p>
+                  Sí. Sin ella, el sistema no puede activar los protocolos de
+                  seguridad y privacidad, lo que compromete todo el
+                  funcionamiento.
+                </p>
+              </div>
+            </div>
+
+            <div class="faq-new-item">
+              <button class="faq-new-btn" onclick="toggleFaq(this)">
+                <span>¿Puedo usar la app sin activar el firewall?</span>
+                <span class="faq-new-icon">+</span>
+              </button>
+              <div class="faq-new-answer">
+                <p>
+                  No. La activación del firewall es necesaria para liberar el
+                  acceso completo y garantizar el secreto de las operaciones.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-dpgm">
+          <p>© 2025 Stalkea.ai — Todos los derechos reservados.®</p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      // Matrix Rain Effect
+      const canvas = document.getElementById("matrix-canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars =
+        "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン0123456789";
+      const charArray = chars.split("");
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+
+      for (let i = 0; i < columns; i++) {
+        drops[i] = (Math.random() * canvas.height) / fontSize;
+      }
+
+      function drawMatrix() {
+        ctx.fillStyle = "rgba(4, 6, 7, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#ab58f4";
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+          const char = charArray[Math.floor(Math.random() * charArray.length)];
+          ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(drawMatrix, 50);
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // Typewriter Effect
+      function typeWriter(element, text, speed = 50, callback) {
+        let i = 0;
+        element.innerHTML = "";
+
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          } else if (callback) {
+            callback();
+          }
+        }
+        type();
+      }
+
+      // Get username from URL or localStorage
+      function getUsername() {
+        const urlParams = new URLSearchParams(window.location.search);
+        return (
+          urlParams.get("username") ||
+          localStorage.getItem("username") ||
+          localStorage.getItem("espionado_username") ||
+          null
+        );
+      }
+
+      // Initialize animations
+      window.addEventListener("DOMContentLoaded", () => {
+        const username = getUsername();
+        const subtitleEl = document.getElementById("subtitleText");
+        const contentSection = document.getElementById("content-section");
+        const offerSection = document.getElementById("offer-section");
+
+        let subtitleText = username
+          ? `Tu acceso al instagram de ${username}\nestá casi finalizado!`
+          : "Tu acceso a Stalkea.ai\nestá casi completo!";
+
+        setTimeout(() => {
+          typeWriter(subtitleEl, subtitleText.replace("\n", " "), 50, () => {
+            setTimeout(() => {
+              contentSection.style.display = "block";
+              setTimeout(() => {
+                offerSection.style.display = "block";
+              }, 300);
+            }, 900);
+          });
+        }, 100);
+
+        // Prevent back navigation
+        history.pushState(null, "", window.location.href);
+        window.addEventListener("popstate", () => {
+          history.pushState(null, "", window.location.href);
+        });
+
+        // Save UTM parameters
+        try {
+          const urlParams = new URLSearchParams(window.location.search);
+          const internalParams = ["username", "admin", "dev", "reset"];
+          const utmParams = {};
+
+          urlParams.forEach((value, key) => {
+            if (!internalParams.includes(key)) {
+              utmParams[key] = value;
+            }
+          });
+
+          if (Object.keys(utmParams).length > 0) {
+            localStorage.setItem("utm_params", JSON.stringify(utmParams));
+          }
+        } catch (e) {
+          console.error("Error al guardar parámetros UTM:", e);
+        }
+      });
+
+      // FAQ Toggle
+      function toggleFaq(button) {
+        const item = button.parentElement;
+        const wasActive = item.classList.contains("active");
+
+        // Close all
+        document.querySelectorAll(".faq-new-item").forEach((el) => {
+          el.classList.remove("active");
+        });
+
+        // Toggle current
+        if (!wasActive) {
+          item.classList.add("active");
+        }
+      }
+    </script>
+  </body>
+</html>
