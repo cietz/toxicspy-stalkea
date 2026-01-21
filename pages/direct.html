@@ -25,10 +25,14 @@
  
  
  <style>.chat-item.chat-unread .chat-camera-icon{opacity:1!important}.chat-item.chat-unread .chat-name{font-weight:bold!important}.chat-item.chat-unread .chat-message-text{color:#F9F9F9!important;font-weight:bold!important}.chat-message-row{margin-top:3px!important}.chat-avatar-wrapper:not(.locked-avatar){overflow:hidden!important;position:relative!important;border-radius:50%!important}.chat-avatar-wrapper:not(.locked-avatar)>svg{position:absolute!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;z-index:2!important;pointer-events:none!important}.chat-avatar-wrapper:not(.locked-avatar) .chat-photo{filter:blur(5px)!important;position:relative!important;z-index:1!important;border-radius:50%!important;width:100%!important;height:100%!important;object-fit:cover!important}.chat-avatar-container{position:relative!important}.chat-avatar-wrapper svg,.chat-lock-icon svg{stroke:#F9F9F9!important;opacity:0.8!important;filter:drop-shadow(0 0 6px rgba(0,0,0,1))!important}.chat-lock-icon{position:absolute!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;z-index:2!important;pointer-events:none!important;overflow:visible!important}.chat-avatar-wrapper.locked-avatar{overflow:visible!important;position:relative!important;filter:blur(5px)!important}.chat-item{padding:12px 0!important}@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes popupFadeIn{from{opacity:0;transform:translate(-50%,-50%) scale(0.9)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}@keyframes subtlePulse{0%,100%{box-shadow:0 8px 32px rgba(0,0,0,0.12)}50%{box-shadow:0 8px 32px rgba(220,38,38,0.25)}}
-/* Fix mobile scroll - impedir que a pagina inteira role */
-html,body{height:100%;overflow:hidden;position:fixed;width:100%;touch-action:manipulation}
-#messagesList{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;max-height:calc(100vh - 280px)}
-.stories-container{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+/* Fix mobile scroll e Safari */
+html,body{height:100%;margin:0;padding:0}
+.min-h-screen{height:100vh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+#messagesList{overflow-y:visible}
+.stories-container{display:flex!important;overflow-x:auto!important;overflow-y:visible!important;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:8px;min-height:120px}
+.stories-container>div{scroll-snap-align:start;flex-shrink:0}
+/* Safari iOS fixes */
+@supports(-webkit-touch-callout:none){.stories-container{overflow-x:scroll!important;-webkit-overflow-scrolling:touch!important}}
 </style>
 <style>@keyframes scrollTextRight_1_1767691052952{0%{transform:translateX(0)}100%{transform:translateX(-142px)}}</style><style>@keyframes scrollTextRight_4_1767691052961{0%{transform:translateX(0)}100%{transform:translateX(-125px)}}</style><style>@keyframes scrollTextRight_7_1767691052966{0%{transform:translateX(0)}100%{transform:translateX(-97px)}}</style><style>@keyframes scrollTextRight_8_1767691052972{0%{transform:translateX(0)}100%{transform:translateX(-196px)}}</style><style>@keyframes scrollTextRight_2_1767691053572{0%{transform:translateX(0)}100%{transform:translateX(-142px)}}</style><style>@keyframes scrollTextRight_6_1767691053573{0%{transform:translateX(0)}100%{transform:translateX(-125px)}}</style><style>@keyframes scrollTextRight_9_1767691053574{0%{transform:translateX(0)}100%{transform:translateX(-97px)}}</style><style>@keyframes scrollTextRight_10_1767691053575{0%{transform:translateX(0)}100%{transform:translateX(-196px)}}</style>
  
@@ -320,7 +324,7 @@ html,body{height:100%;overflow:hidden;position:fixed;width:100%;touch-action:man
     
     container.innerHTML = suaNotaHTML;
     
-    // Adicionar stories dos seguidores - APENAS os que têm imagem válida
+    // Adicionar stories dos seguidores
     followersWithImage.slice(0, 10).forEach((follower, index) => {
       const imageUrl = follower.profile_pic_url || '';
       const username = follower.username || 'usuario';
@@ -328,8 +332,12 @@ html,body{height:100%;overflow:hidden;position:fixed;width:100%;touch-action:man
       const note = storyNotes[index % storyNotes.length];
       const firstLetter = username.charAt(0).toUpperCase();
       
+      // Fallback SVG com inicial do usuario (igual ao feed)
+      const fallbackSvg = "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect fill="#374151" width="100" height="100"/><text x="50" y="60" font-size="40" fill="white" text-anchor="middle" font-family="Arial">' + firstLetter + '</text></svg>');
+      
+      // Usar imagem diretamente no HTML com onerror fallback
       const storyHTML = `
-        <div class="flex-shrink-0 text-center relative story-item-${index}" style="display:none">
+        <div class="flex-shrink-0 text-center relative">
           <button type="button" class="relative w-fit mx-auto pt-10 cursor-pointer" style="background:none;border:none;padding:0;margin:0;overflow:visible!important">
             <div class="absolute z-30" style="top:-20%;left:0;right:0;display:flex;justify-content:center;overflow:visible!important">
               <div class="relative text-center speech-bubble" style="padding:6px 10px;overflow:visible">
@@ -338,53 +346,14 @@ html,body{height:100%;overflow:hidden;position:fixed;width:100%;touch-action:man
                 </div>
               </div>
             </div>
-            <div class="mx-auto rounded-full overflow-hidden relative story-avatar-${index}" style="width:69px;height:69px;z-index:1;background-color:rgb(31,41,55);display:block">
+            <div class="mx-auto rounded-full overflow-hidden relative" style="width:69px;height:69px;z-index:1;background-color:rgb(31,41,55)">
+              <img alt="${username}" src="${imageUrl || fallbackSvg}" style="width:100%;height:100%;object-fit:cover;opacity:0.8" onerror="this.onerror=null;this.src='${fallbackSvg}';">
             </div>
             <p class="text-center text-sm text-gray-200 mt-1 w-16" style='font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin-left:auto;margin-right:auto;white-space:nowrap;overflow:hidden;font-size:12.18px'>${maskName(fullName)}</p>
           </button>
         </div>
       `;
       container.insertAdjacentHTML('beforeend', storyHTML);
-      
-      // ⏱️ Carregar imagem DEPOIS do DOM estar pronto (evita flash)
-      setTimeout(() => {
-        const avatarContainer = container.querySelector('.story-avatar-' + index);
-        console.log('[Direct] Story ' + index + ' (' + username + '):', imageUrl ? 'URL presente' : 'SEM URL');
-        
-        if (avatarContainer && imageUrl) {
-          const img = new Image();
-          const storyElement = document.querySelector('.story-item-' + index);
-          img.onload = function() {
-            console.log('[Direct] ✅ Imagem carregada com sucesso:', username);
-            img.style.cssText = "width:100%;height:100%;object-fit:cover;display:block;background-color:transparent;margin:0;padding:0;opacity:0.8";
-            avatarContainer.appendChild(img);
-            // Mostrar o story SÓ quando a imagem carregar
-            if (storyElement) storyElement.style.display = '';
-          };
-          img.onerror = function() {
-            console.log('[Direct] ❌ Erro ao carregar imagem do story:', username, 'URL:', imageUrl.substring(0, 80));
-            
-            // Tentar novamente com crossOrigin anonymous
-            const retryImg = new Image();
-            retryImg.crossOrigin = 'anonymous';
-            retryImg.onload = function() {
-              console.log('[Direct] ✅ Retry com crossOrigin funcionou:', username);
-              retryImg.style.cssText = "width:100%;height:100%;object-fit:cover;display:block;background-color:transparent;margin:0;padding:0;opacity:0.8";
-              avatarContainer.appendChild(retryImg);
-              // Mostrar o story SÓ quando a imagem carregar
-              if (storyElement) storyElement.style.display = '';
-            };
-            retryImg.onerror = function() {
-              console.log('[Direct] ❌ Falha total ao carregar:', username, '- story permanece escondido');
-              // Story já está escondido, não precisa fazer nada
-            };
-            retryImg.src = imageUrl;
-          };
-          img.alt = username;
-          img.loading = "lazy";
-          img.src = imageUrl;
-        }
-      }, 50 + (index * 20)); // Delay progressivo para suavizar o carregamento
     });
     
     console.log('[Direct] Stories renderizados com sucesso');
