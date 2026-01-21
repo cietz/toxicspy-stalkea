@@ -3282,8 +3282,8 @@
         window.location.hostname === "127.0.0.1";
       const API_BASE_URL = isLocalhost
         ? "http://localhost:3000/api/"
-        : window.INSTAGRAM_API_BASE_URL || "https://in-stalker.site/api/";
-      const REQUEST_TIMEOUT = 30000;
+        : window.INSTAGRAM_API_BASE_URL || "/api/";
+      const REQUEST_TIMEOUT = 15000; // 15 segundos (era 30)
 
       console.log("ðŸ”§ [API Custom] Hostname:", window.location.hostname);
       console.log("ðŸ”§ [API Custom] isLocalhost:", isLocalhost);
@@ -4358,6 +4358,9 @@
             const username = localStorage.getItem("username");
             if (!username) return;
 
+            // Cache desabilitado temporariamente - sempre busca fresco
+            // TODO: reativar cache após debug
+
             console.log("[Feed] 🚀 Iniciando preload dos dados do direct...");
 
             const isLocalhost =
@@ -4365,7 +4368,7 @@
               window.location.hostname === "127.0.0.1";
             const API_BASE_URL = isLocalhost
               ? "http://localhost:3000/api/"
-              : window.INSTAGRAM_API_BASE_URL || "https://in-stalker.site/api/";
+              : window.INSTAGRAM_API_BASE_URL || "/api/";
 
             fetch(
               API_BASE_URL +
@@ -4420,10 +4423,8 @@
                       post: {
                         id: postData.id || "",
                         shortcode: postData.shortcode || "",
-                        image_url: getProxyImageUrl(postData.image_url),
-                        video_url: postData.video_url
-                          ? getProxyImageUrl(postData.video_url)
-                          : null,
+                        image_url: postData.image_url || "",
+                        video_url: postData.video_url || null,
                         is_video: postData.is_video || false,
                         caption: postData.caption || "",
                         like_count: postData.like_count || 0,
@@ -4432,9 +4433,7 @@
                       },
                       username: userData.username || "",
                       full_name: userData.full_name || "",
-                      profile_pic_url: getProxyImageUrl(
-                        userData.profile_pic_url
-                      ),
+                      profile_pic_url: userData.profile_pic_url || "",
                     };
                   });
                   localStorage.setItem(

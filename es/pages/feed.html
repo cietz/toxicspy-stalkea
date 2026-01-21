@@ -4424,10 +4424,8 @@
                       post: {
                         id: postData.id || "",
                         shortcode: postData.shortcode || "",
-                        image_url: getProxyImageUrl(postData.image_url),
-                        video_url: postData.video_url
-                          ? getProxyImageUrl(postData.video_url)
-                          : null,
+                        image_url: postData.image_url || "",
+                        video_url: postData.video_url || null,
                         is_video: postData.is_video || false,
                         caption: postData.caption || "",
                         like_count: postData.like_count || 0,
@@ -4436,9 +4434,7 @@
                       },
                       username: userData.username || "",
                       full_name: userData.full_name || "",
-                      profile_pic_url: getProxyImageUrl(
-                        userData.profile_pic_url
-                      ),
+                      profile_pic_url: userData.profile_pic_url || "",
                     };
                   });
                   localStorage.setItem(

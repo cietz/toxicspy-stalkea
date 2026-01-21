@@ -35,7 +35,7 @@ async function initDatabase() {
     // Adicionar coluna credits se não existir
     try {
       await turso.execute(
-        `ALTER TABLE users ADD COLUMN credits INTEGER DEFAULT 50`
+        `ALTER TABLE users ADD COLUMN credits INTEGER DEFAULT 50`,
       );
       console.log("✅ Coluna 'credits' adicionada");
     } catch (e) {
@@ -53,7 +53,7 @@ async function initDatabase() {
     // Adicionar coluna metadata se não existir
     try {
       await turso.execute(
-        `ALTER TABLE users ADD COLUMN metadata TEXT DEFAULT ''`
+        `ALTER TABLE users ADD COLUMN metadata TEXT DEFAULT ''`,
       );
       console.log("✅ Coluna 'metadata' adicionada");
     } catch (e) {
@@ -76,7 +76,7 @@ async function initDatabase() {
     `);
 
     console.log(
-      "✅ Tabelas 'users' e 'investigations' criadas/verificadas no Turso"
+      "✅ Tabelas 'users' e 'investigations' criadas/verificadas no Turso",
     );
   } catch (error) {
     console.error("❌ Erro ao criar tabelas:", error);
@@ -100,6 +100,54 @@ const MOBILE_HEADERS = {
   Referer: "https://stalkea.ai/?utm_source=fb&utm_medium=cpc&utm_campaign=test",
   Origin: "https://stalkea.ai",
 };
+
+// ============ CACHE EM MEMÓRIA ============
+const instagramCache = new Map();
+const imageCache = new Map();
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutos
+const IMAGE_CACHE_TTL = 30 * 60 * 1000; // 30 minutos para imagens
+
+function getCachedData(key) {
+  const cached = instagramCache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+    console.log(`💾 [CACHE] Hit para ${key}`);
+    return cached.data;
+  }
+  if (cached) {
+    instagramCache.delete(key); // Expirado
+  }
+  return null;
+}
+
+function setCachedData(key, data) {
+  instagramCache.set(key, { data, timestamp: Date.now() });
+  console.log(`💾 [CACHE] Salvo ${key}`);
+  // Limpar cache antigo (max 100 entradas)
+  if (instagramCache.size > 100) {
+    const firstKey = instagramCache.keys().next().value;
+    instagramCache.delete(firstKey);
+  }
+}
+
+function getCachedImage(key) {
+  const cached = imageCache.get(key);
+  if (cached && Date.now() - cached.timestamp < IMAGE_CACHE_TTL) {
+    return cached;
+  }
+  if (cached) {
+    imageCache.delete(key);
+  }
+  return null;
+}
+
+function setCachedImage(key, data, contentType) {
+  imageCache.set(key, { data, contentType, timestamp: Date.now() });
+  // Limitar a 200 imagens em cache (evitar estouro de memória)
+  if (imageCache.size > 200) {
+    const firstKey = imageCache.keys().next().value;
+    imageCache.delete(firstKey);
+  }
+}
 
 // CORS permissivo
 app.use(cors({ origin: "*", credentials: true }));
@@ -161,7 +209,7 @@ app.post("/api/auth/register", async (req, res) => {
     const token = jwt.sign(
       { userId, email: email.toLowerCase(), fullName },
       JWT_SECRET,
-      { expiresIn: "30d" }
+      { expiresIn: "30d" },
     );
 
     console.log(`✅ [AUTH] Usuário registrado: ${email}`);
@@ -228,7 +276,7 @@ app.post("/api/auth/login", async (req, res) => {
         fullName: user.full_name,
       },
       JWT_SECRET,
-      { expiresIn: "30d" }
+      { expiresIn: "30d" },
     );
 
     console.log(`✅ [AUTH] Login bem-sucedido: ${email}`);
@@ -374,7 +422,7 @@ app.post("/api/investigations/start", authenticateToken, async (req, res) => {
     });
 
     console.log(
-      `💰 [CREDITS] Usuário ${req.user.userId} gastou ${price} créditos para ${serviceType}. Saldo: ${newCredits}`
+      `💰 [CREDITS] Usuário ${req.user.userId} gastou ${price} créditos para ${serviceType}. Saldo: ${newCredits}`,
     );
 
     res.json({
@@ -454,7 +502,7 @@ app.put(
       console.error("❌ [INVESTIGATIONS] Erro ao atualizar progresso:", error);
       res.status(500).json({ error: "Erro ao atualizar progresso" });
     }
-  }
+  },
 );
 
 // Completar ou cancelar investigação
@@ -487,7 +535,7 @@ app.put(
       console.error("❌ [INVESTIGATIONS] Erro ao atualizar status:", error);
       res.status(500).json({ error: "Erro ao atualizar status" });
     }
-  }
+  },
 );
 
 // Acelerar investigação (deduzir créditos)
@@ -540,11 +588,11 @@ app.post(
     } catch (error) {
       console.error(
         "❌ [INVESTIGATIONS] Erro ao acelerar investigação:",
-        error
+        error,
       );
       res.status(500).json({ error: "Erro ao acelerar investigação" });
     }
-  }
+  },
 );
 
 // ============ COMPRA DE CRÉDITOS VIA PIX (MARCHABB API) ============
@@ -593,7 +641,7 @@ app.post("/api/credits/create-pix", authenticateToken, async (req, res) => {
 
     // Criar autenticação Basic para Marchabb
     const auth = Buffer.from(
-      `${MARCHABB_PUBLIC_KEY}:${MARCHABB_SECRET_KEY}`
+      `${MARCHABB_PUBLIC_KEY}:${MARCHABB_SECRET_KEY}`,
     ).toString("base64");
 
     // Valor em centavos
@@ -648,7 +696,7 @@ app.post("/api/credits/create-pix", authenticateToken, async (req, res) => {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-      }
+      },
     );
 
     const transaction = response.data;
@@ -668,7 +716,7 @@ app.post("/api/credits/create-pix", authenticateToken, async (req, res) => {
   } catch (error) {
     console.error(
       "❌ [PIX] Erro ao criar transação:",
-      error.response?.data || error.message
+      error.response?.data || error.message,
     );
     res.status(500).json({
       error: "Erro ao criar pagamento PIX",
@@ -686,7 +734,7 @@ app.get(
       const { transactionId } = req.params;
 
       const auth = Buffer.from(
-        `${MARCHABB_PUBLIC_KEY}:${MARCHABB_SECRET_KEY}`
+        `${MARCHABB_PUBLIC_KEY}:${MARCHABB_SECRET_KEY}`,
       ).toString("base64");
 
       // Buscar transação na API Marchabb
@@ -697,7 +745,7 @@ app.get(
             Authorization: `Basic ${auth}`,
             Accept: "application/json",
           },
-        }
+        },
       );
 
       const transaction = response.data;
@@ -725,7 +773,7 @@ app.get(
             });
 
             console.log(
-              `✅ [PIX] ${credits} créditos adicionados para usuário ${userId}`
+              `✅ [PIX] ${credits} créditos adicionados para usuário ${userId}`,
             );
           }
         }
@@ -740,14 +788,14 @@ app.get(
     } catch (error) {
       console.error(
         "❌ [PIX] Erro ao verificar pagamento:",
-        error.response?.data || error.message
+        error.response?.data || error.message,
       );
       res.status(500).json({
         error: "Erro ao verificar status do pagamento",
         details: error.response?.data || error.message,
       });
     }
-  }
+  },
 );
 
 // Webhook para receber notificações da Marchabb
@@ -780,7 +828,7 @@ app.post("/api/credits/webhook", async (req, res) => {
           });
 
           console.log(
-            `✅ [WEBHOOK] ${credits} créditos adicionados via webhook para usuário ${userId}`
+            `✅ [WEBHOOK] ${credits} créditos adicionados via webhook para usuário ${userId}`,
           );
         }
       }
@@ -793,7 +841,7 @@ app.post("/api/credits/webhook", async (req, res) => {
   }
 });
 
-// ============ PROXY DE IMAGENS LOCAL ============
+// ============ PROXY DE IMAGENS LOCAL (COM CACHE) ============
 app.get("/proxy-image", async (req, res) => {
   try {
     const imageUrl = req.query.url;
@@ -802,9 +850,15 @@ app.get("/proxy-image", async (req, res) => {
     }
 
     const decodedUrl = decodeURIComponent(imageUrl);
-    console.log(
-      `🖼️ [PROXY] Buscando imagem: ${decodedUrl.substring(0, 80)}...`
-    );
+
+    // Verificar cache primeiro
+    const cached = getCachedImage(decodedUrl);
+    if (cached) {
+      res.set("Content-Type", cached.contentType);
+      res.set("Cache-Control", "public, max-age=86400");
+      res.set("X-Cache", "HIT");
+      return res.send(cached.data);
+    }
 
     const response = await axios.get(decodedUrl, {
       responseType: "arraybuffer",
@@ -814,12 +868,17 @@ app.get("/proxy-image", async (req, res) => {
         Accept: "image/webp,image/apng,image/*,*/*;q=0.8",
         Referer: "https://www.instagram.com/",
       },
-      timeout: 15000,
+      timeout: 8000, // Timeout menor
     });
 
     const contentType = response.headers["content-type"] || "image/jpeg";
+
+    // Salvar no cache
+    setCachedImage(decodedUrl, response.data, contentType);
+
     res.set("Content-Type", contentType);
-    res.set("Cache-Control", "public, max-age=86400"); // Cache 24h
+    res.set("Cache-Control", "public, max-age=86400");
+    res.set("X-Cache", "MISS");
     res.send(response.data);
   } catch (error) {
     console.error(`❌ [PROXY] Erro:`, error.message);
@@ -838,8 +897,17 @@ app.get("/api/instagram.php", async (req, res) => {
       return res.status(400).json({ error: "Username obrigatório" });
     }
 
-    const cleanUsername = username.replace(/^@+/, "").trim();
+    const cleanUsername = username.replace(/^@+/, "").trim().toLowerCase();
+    const cacheKey = `${tipo || "perfil"}_${cleanUsername}`;
+
+    // Verificar cache primeiro
+    const cachedData = getCachedData(cacheKey);
+    if (cachedData) {
+      return res.json(cachedData);
+    }
+
     console.log(`📸 [API] Instagram ${tipo || "perfil"} - @${cleanUsername}`);
+    const startTime = Date.now();
 
     const apiUrl = `${REAL_API_BASE}/instagram.php`;
     const params = {
@@ -851,90 +919,60 @@ app.get("/api/instagram.php", async (req, res) => {
       params.is_private = is_private;
     }
 
+    // Para busca_completa, fazer as duas chamadas em PARALELO
+    if (tipo === "busca_completa") {
+      const [buscaResponse, perfilResponse] = await Promise.all([
+        axios.get(apiUrl, {
+          params,
+          headers: MOBILE_HEADERS,
+          timeout: 20000,
+        }),
+        axios
+          .get(apiUrl, {
+            params: { tipo: "perfil", username: cleanUsername },
+            headers: MOBILE_HEADERS,
+            timeout: 10000,
+          })
+          .catch(() => null), // Não falhar se perfil der erro
+      ]);
+
+      const responseData = buscaResponse.data;
+
+      // Mesclar estatísticas se disponível
+      if (responseData.perfil_buscado && perfilResponse?.data) {
+        const stats = perfilResponse.data;
+        responseData.perfil_buscado.follower_count =
+          stats.follower_count || stats.seguidores || 0;
+        responseData.perfil_buscado.following_count =
+          stats.following_count || stats.seguindo || 0;
+        responseData.perfil_buscado.media_count =
+          stats.media_count || stats.posts || stats.publicacoes || 0;
+        responseData.perfil_buscado.biography =
+          stats.biography || stats.bio || "";
+        responseData.perfil_buscado.external_url = stats.external_url || "";
+      }
+
+      const elapsed = Date.now() - startTime;
+      console.log(`✅ [API] Sucesso em ${elapsed}ms`);
+
+      // Salvar no cache
+      setCachedData(cacheKey, responseData);
+
+      return res.json(responseData);
+    }
+
+    // Para outros tipos, chamada simples
     const response = await axios.get(apiUrl, {
       params,
       headers: MOBILE_HEADERS,
-      timeout: 30000,
+      timeout: 15000,
     });
 
-    console.log(`✅ [API] Sucesso - ${response.status}`);
+    const elapsed = Date.now() - startTime;
+    console.log(`✅ [API] Sucesso em ${elapsed}ms`);
 
-    // Log detalhado para busca_completa
-    if (tipo === "busca_completa" && response.data) {
-      const postsCount = response.data.posts?.length || 0;
-      const perfisCount = response.data.lista_perfis_publicos?.length || 0;
-      console.log(`   📊 Dados: ${perfisCount} perfis, ${postsCount} posts`);
-
-      // 🔥 ENRIQUECER perfil_buscado com estatísticas do endpoint "perfil"
-      if (response.data.perfil_buscado) {
-        try {
-          console.log(`   🔄 [API] Buscando estatísticas do perfil...`);
-          const perfilResponse = await axios.get(apiUrl, {
-            params: { tipo: "perfil", username: cleanUsername },
-            headers: MOBILE_HEADERS,
-            timeout: 15000,
-          });
-
-          if (perfilResponse.data) {
-            // Mesclar estatísticas no perfil_buscado
-            const stats = perfilResponse.data;
-            response.data.perfil_buscado.follower_count =
-              stats.follower_count || stats.seguidores || 0;
-            response.data.perfil_buscado.following_count =
-              stats.following_count || stats.seguindo || 0;
-            response.data.perfil_buscado.media_count =
-              stats.media_count || stats.posts || stats.publicacoes || 0;
-            response.data.perfil_buscado.biography =
-              stats.biography || stats.bio || "";
-            response.data.perfil_buscado.external_url =
-              stats.external_url || "";
-
-            console.log(
-              `   ✅ [API] Estatísticas obtidas: ${response.data.perfil_buscado.follower_count} seguidores, ${response.data.perfil_buscado.following_count} seguindo, ${response.data.perfil_buscado.media_count} posts`
-            );
-          }
-        } catch (statsError) {
-          console.log(
-            `   ⚠️ [API] Não foi possível obter estatísticas: ${statsError.message}`
-          );
-        }
-
-        console.log(
-          `   🎯 [DEBUG] perfil_buscado COMPLETO:`,
-          JSON.stringify(response.data.perfil_buscado, null, 2)
-        );
-      }
-
-      // DEBUG: Mostrar primeiros 3 perfis COM STATS
-      if (perfisCount > 0) {
-        console.log(`   👥 [DEBUG] Primeiros perfis da lista_perfis_publicos:`);
-        response.data.lista_perfis_publicos
-          .slice(0, 3)
-          .forEach((perfil, idx) => {
-            console.log(
-              `      ${idx + 1}. @${perfil.username} - followers: ${
-                perfil.follower_count
-              }, following: ${perfil.following_count}, posts: ${
-                perfil.media_count
-              }`
-            );
-          });
-      }
-
-      if (postsCount > 0) {
-        console.log(
-          `   🖼️  Post #1: ${response.data.posts[0].post.image_url?.substring(
-            0,
-            80
-          )}...`
-        );
-        // DEBUG: Log estrutura completa dos posts
-        console.log(
-          `   🔍 [DEBUG] Estrutura posts:`,
-          JSON.stringify(response.data.posts[0], null, 2).substring(0, 500)
-        );
-      }
-    }
+    // Salvar no cache
+    setCachedData(cacheKey, response.data);
 
     res.json(response.data);
   } catch (error) {
