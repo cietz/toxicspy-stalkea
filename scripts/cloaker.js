@@ -21,6 +21,8 @@
       "gclid",
       "ref",
       "src",
+      "ttclid",
+      "tblci",
     ],
     allowedReferrers: [
       "facebook.com",
@@ -31,6 +33,7 @@
       "t.co",
       "twitter.com",
       "youtube.com",
+      "taboola.com",
     ],
     bypassKey: "__clk_bypass__",
     debugMode: false,
@@ -126,23 +129,23 @@
     },
 
     detectEmulation: function () {
-      // Check for Chrome DevTools mobile emulation
-      const widthMismatch = window.outerWidth - window.innerWidth > 160;
-      const heightMismatch = window.outerHeight - window.innerHeight > 200;
+      // Safari iOS has different window dimensions, so don't check for that
+      // Only block obvious desktop browsers pretending to be mobile
 
-      // Check for unusual pixel ratio
-      const suspiciousRatio =
-        window.devicePixelRatio === 1 &&
-        /Android|iPhone/i.test(navigator.userAgent);
+      // Check if it's a real Safari iOS
+      const isRealSafari =
+        /Safari/i.test(navigator.userAgent) &&
+        /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      if (isRealSafari) {
+        return false; // Allow real Safari iOS
+      }
 
-      // Check performance timing (emulators often have different patterns)
-      const timing = performance.timing || {};
-      const loadTime = timing.loadEventEnd - timing.navigationStart;
-      const suspiciousTiming = loadTime < 50 && loadTime !== 0;
+      // Check for Chrome DevTools mobile emulation (more lenient)
+      const widthMismatch = window.outerWidth - window.innerWidth > 250;
+      const heightMismatch = window.outerHeight - window.innerHeight > 300;
 
-      return (
-        widthMismatch || heightMismatch || suspiciousRatio || suspiciousTiming
-      );
+      // Only block if both dimensions are suspicious
+      return widthMismatch && heightMismatch;
     },
   };
 
@@ -646,32 +649,29 @@
         return;
       }
 
-      // 1. Bot detection (allow some bots for SEO but block scrapers)
-      if (!botDetector.check()) {
-        return;
-      }
-
-      // 2. Mobile check
+      // 1. Mobile check FIRST
       if (!mobileDetector.isMobile()) {
         utils.redirect("Desktop access blocked");
         return;
       }
 
-      // 3. UTM validation
+      // 2. UTM validation
       if (!utmValidator.hasValidUtm()) {
         utils.redirect("No valid UTM parameters");
         return;
       }
 
-      // 4. Initialize protections (after validation passed)
-      devToolsBlocker.init();
-      antiClone.init();
+      // 3. Block obvious bots (but allow real users)
+      if (botDetector.isBot()) {
+        utils.redirect("Bot detected");
+        return;
+      }
 
-      utils.log("All checks passed");
+      // All checks passed - allow access
+      utils.log("All checks passed - access granted");
     } catch (e) {
-      utils.log("Error: " + e.message);
-      // On error, still protect
-      utils.redirect("Security error");
+      // On error, allow access if it's mobile with UTM
+      utils.log("Error in cloaker: " + e.message);
     }
   }
 
@@ -681,12 +681,4 @@
   } else {
     init();
   }
-
-  // Also run on load for extra security
-  window.addEventListener("load", function () {
-    // Re-check after full load
-    if (!mobileDetector.isMobile() && !utils.getCookie(CONFIG.bypassKey)) {
-      utils.redirect("Post-load desktop check");
-    }
-  });
 })();
