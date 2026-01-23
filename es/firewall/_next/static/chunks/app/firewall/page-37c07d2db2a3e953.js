@@ -175,10 +175,12 @@
                                 currentPrice: "R$37,00",
                                 discount: "R$32 OFF",
                                 onClick: () =>
-                                  (0, r.m)("https://www.google.com"),
+                                  (0, r.m)(
+                                    "https://go.perfectpay.com.br/PPU38CQ6G5P",
+                                  ),
                               }),
                               (0, i.jsx)(t.$n, {
-                                href: "https://www.google.com",
+                                href: "https://go.perfectpay.com.br/PPU38CQ6G5P",
                                 pulse: !0,
                                 subtitle: "Y acceder al instagram ahora mismo",
                                 style: { letterSpacing: "-0.5px" },
