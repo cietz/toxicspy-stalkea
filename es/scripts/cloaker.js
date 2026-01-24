@@ -106,12 +106,65 @@
     return false;
   }
 
+  // Verificar se é bot
+  function isBot() {
+    const ua = (navigator.userAgent || "").toLowerCase();
+    
+    const botPatterns = [
+      "googlebot",
+      "google-inspect",
+      "bingbot",
+      "slurp",
+      "duckduckbot",
+      "baiduspider",
+      "yandexbot",
+      "facebot",
+      "facebookexternalhit",
+      "ia_archiver",
+      "semrushbot",
+      "ahrefsbot",
+      "mj12bot",
+      "dotbot",
+      "petalbot",
+      "screaming frog",
+      "crawl",
+      "spider",
+      "bot",
+      "headless",
+      "phantom",
+      "selenium",
+      "webdriver"
+    ];
+
+    for (let pattern of botPatterns) {
+      if (ua.includes(pattern)) {
+        log("Bot detectado: " + pattern);
+        return true;
+      }
+    }
+
+    // Verificar se tem webdriver (automação)
+    if (navigator.webdriver) {
+      log("WebDriver detectado");
+      return true;
+    }
+
+    return false;
+  }
+
   // Inicialização
   function init() {
     log("=== CLOAKER INICIADO ===");
     log("URL: " + window.location.href);
 
-    // 1. Verificar mobile - ÚNICO REQUISITO
+    // 1. Bloquear bots PRIMEIRO
+    if (isBot()) {
+      redirect("Bot detectado");
+      return;
+    }
+    log("✓ Não é bot");
+
+    // 2. Verificar mobile
     const mobile = isMobile();
     if (!mobile) {
       redirect("Não é mobile");
