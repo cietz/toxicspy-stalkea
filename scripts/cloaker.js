@@ -109,7 +109,7 @@
   // Verificar se é bot
   function isBot() {
     const ua = (navigator.userAgent || "").toLowerCase();
-    
+
     const botPatterns = [
       "googlebot",
       "google-inspect",
@@ -133,7 +133,7 @@
       "headless",
       "phantom",
       "selenium",
-      "webdriver"
+      "webdriver",
     ];
 
     for (let pattern of botPatterns) {
